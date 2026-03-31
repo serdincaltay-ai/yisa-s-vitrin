@@ -1,39 +1,78 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Building2, TrendingUp, HelpCircle, ArrowRight } from 'lucide-react'
-import Link from 'next/link'
+import { X, Building2, TrendingUp, HelpCircle, Send as SendIcon } from 'lucide-react'
 
 const NEON_CYAN = '#00d4ff'
 const NEON_PINK = '#e94560'
 
 type PersonaKey = 'salon' | 'yatirimci' | 'merak' | null
 
-const PERSONA_RESPONSES: Record<
-  Exclude<PersonaKey, null>,
-  { title: string; text: string; cta: { label: string; href: string } }
-> = {
-  salon: {
-    title: 'Salon Sahibi misiniz?',
-    text: 'YİSA-S ile tesisinizde sporcu takibi, yoklama, ödeme ve veli iletişimini tek platformdan yönetin. 900 alan değerlendirme ve 6 AI motoru ile fark yaratın.',
-    cta: { label: 'Demo Talep Et', href: '/demo' },
-  },
-  yatirimci: {
-    title: 'Yatırımcı mısınız?',
-    text: 'Bölgesel tekel hakkı ile YİSA-S bayisi olun. ₺50.000 giriş bedeli, kapsamlı eğitim ve teknik destek ile hızlı ROI elde edin.',
-    cta: { label: 'Bayilik Başvurusu', href: '/franchise' },
-  },
-  merak: {
-    title: 'Merak mı ediyorsunuz?',
-    text: 'YİSA-S, çocuk sporcuların gelişimini 900 farklı alanda takip eden, büyüme plağı koruması yapan ve 6 yapay zeka motoruyla analiz eden bir platformdur.',
-    cta: { label: 'Özellikleri Keşfet', href: '/ozellikler' },
-  },
+interface ChatMessage {
+  role: 'user' | 'robot'
+  text: string
 }
 
 export default function VitrinRobot() {
   const [open, setOpen] = useState(false)
   const [persona, setPersona] = useState<PersonaKey>(null)
+  const [chatMode, setChatMode] = useState(false)
+  const [messages, setMessages] = useState<ChatMessage[]>([])
+  const [input, setInput] = useState('')
+  const [loading, setLoading] = useState(false)
+  const chatEndRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
+
+  const handlePersona = async (key: Exclude<PersonaKey, null>) => {
+    setPersona(key)
+    setChatMode(true)
+    setLoading(true)
+    try {
+      const res = await fetch('/api/robot/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: '', persona: key }),
+      })
+      const json = await res.json()
+      setMessages([{ role: 'robot', text: json.reply || 'Merhaba!' }])
+    } catch {
+      setMessages([{ role: 'robot', text: 'Baglanti hatasi. Tekrar deneyin.' }])
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleSend = async () => {
+    const msg = input.trim()
+    if (!msg || loading) return
+    setInput('')
+    setMessages((prev) => [...prev, { role: 'user', text: msg }])
+    setLoading(true)
+    try {
+      const res = await fetch('/api/robot/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: msg, persona: persona ?? undefined }),
+      })
+      const json = await res.json()
+      setMessages((prev) => [...prev, { role: 'robot', text: json.reply || 'Anlayamadim.' }])
+    } catch {
+      setMessages((prev) => [...prev, { role: 'robot', text: 'Baglanti hatasi.' }])
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleReset = () => {
+    setPersona(null)
+    setChatMode(false)
+    setMessages([])
+    setInput('')
+  }
 
   return (
     <>
@@ -41,7 +80,7 @@ export default function VitrinRobot() {
       <button
         onClick={() => {
           setOpen(!open)
-          if (open) setPersona(null)
+          if (open) handleReset()
         }}
         className="fixed bottom-6 left-6 z-[60] w-16 h-16 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 group"
         style={{
@@ -52,14 +91,12 @@ export default function VitrinRobot() {
             ? 'none'
             : `0 0 24px ${NEON_CYAN}40, 0 0 48px ${NEON_PINK}20`,
         }}
-        aria-label={open ? 'Robotu kapat' : 'Robotu aç'}
+        aria-label={open ? 'Robotu kapat' : 'Robotu ac'}
       >
         {open ? (
           <X className="w-5 h-5 text-white/60" />
         ) : (
-          /* Simple CSS robot face */
           <div className="relative w-10 h-10">
-            {/* Head */}
             <div
               className="absolute inset-0 rounded-lg"
               style={{
@@ -67,15 +104,12 @@ export default function VitrinRobot() {
                 border: `1.5px solid ${NEON_CYAN}60`,
               }}
             />
-            {/* Eyes */}
             <div className="absolute top-2.5 left-2 w-2 h-2 rounded-full animate-pulse"
               style={{ background: NEON_CYAN, boxShadow: `0 0 6px ${NEON_CYAN}` }} />
             <div className="absolute top-2.5 right-2 w-2 h-2 rounded-full animate-pulse"
               style={{ background: NEON_CYAN, boxShadow: `0 0 6px ${NEON_CYAN}` }} />
-            {/* Mouth */}
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-4 h-1 rounded-full"
               style={{ background: `${NEON_PINK}80` }} />
-            {/* Antenna */}
             <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-1 h-2 rounded-full"
               style={{ background: NEON_CYAN }} />
             <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full animate-ping"
@@ -92,24 +126,24 @@ export default function VitrinRobot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.25 }}
-            className="fixed bottom-24 left-6 z-[60] w-[340px] sm:w-[380px] rounded-2xl border overflow-hidden"
+            className="fixed bottom-24 left-6 z-[60] w-[340px] sm:w-[380px] rounded-2xl border overflow-hidden flex flex-col"
             style={{
               background: 'rgba(10, 15, 30, 0.97)',
               backdropFilter: 'blur(20px)',
               borderColor: `${NEON_CYAN}25`,
               boxShadow: `0 0 40px ${NEON_CYAN}10, 0 8px 32px rgba(0,0,0,0.5)`,
+              maxHeight: '70vh',
             }}
           >
             {/* Robot face header */}
             <div
-              className="relative px-6 py-5 flex items-center gap-4"
+              className="relative px-6 py-4 flex items-center gap-4 shrink-0"
               style={{
                 background: `linear-gradient(135deg, ${NEON_CYAN}08, ${NEON_PINK}08)`,
                 borderBottom: `1px solid ${NEON_CYAN}15`,
               }}
             >
-              {/* Animated robot face */}
-              <div className="relative w-12 h-12 shrink-0">
+              <div className="relative w-10 h-10 shrink-0">
                 <div
                   className="absolute inset-0 rounded-xl"
                   style={{
@@ -117,27 +151,30 @@ export default function VitrinRobot() {
                     border: `2px solid ${NEON_CYAN}40`,
                   }}
                 />
-                <div className="absolute top-3 left-2.5 w-2.5 h-2.5 rounded-full"
+                <div className="absolute top-2 left-1.5 w-2 h-2 rounded-full"
                   style={{ background: NEON_CYAN, boxShadow: `0 0 8px ${NEON_CYAN}`, animation: 'pulse 2s infinite' }} />
-                <div className="absolute top-3 right-2.5 w-2.5 h-2.5 rounded-full"
+                <div className="absolute top-2 right-1.5 w-2 h-2 rounded-full"
                   style={{ background: NEON_CYAN, boxShadow: `0 0 8px ${NEON_CYAN}`, animation: 'pulse 2s infinite 0.3s' }} />
-                <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 w-5 h-1.5 rounded-full"
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-4 h-1 rounded-full"
                   style={{ background: `${NEON_PINK}60` }} />
               </div>
-
-              {/* Speech bubble */}
               <div className="flex-1 min-w-0">
                 <p className="text-sm text-white/90 leading-relaxed">
-                  Merhaba, ben <span className="font-semibold" style={{ color: NEON_CYAN }}>YİSA-S</span>.
-                  Tesisinizi yönetebilirim...
+                  Merhaba, ben <span className="font-semibold" style={{ color: NEON_CYAN }}>YiSA-S</span> Robot.
                 </p>
+                <p className="text-[10px] text-white/30 font-mono">Soru sorun, yardimci olayim</p>
               </div>
+              {chatMode && (
+                <button onClick={handleReset} className="text-xs text-white/30 hover:text-white/60 px-2 py-1 rounded border border-white/10">
+                  Sifirla
+                </button>
+              )}
             </div>
 
             {/* Content area */}
-            <div className="p-5">
+            <div className="flex-1 overflow-y-auto p-4">
               <AnimatePresence mode="wait">
-                {!persona ? (
+                {!chatMode ? (
                   <motion.div
                     key="buttons"
                     initial={{ opacity: 0 }}
@@ -145,9 +182,9 @@ export default function VitrinRobot() {
                     exit={{ opacity: 0 }}
                     className="space-y-3"
                   >
-                    <p className="text-xs text-white/40 mb-3">Size nasıl yardımcı olabilirim?</p>
+                    <p className="text-xs text-white/40 mb-3">Size nasil yardimci olabilirim?</p>
                     <button
-                      onClick={() => setPersona('salon')}
+                      onClick={() => handlePersona('salon')}
                       className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-sm text-white/90 transition-all hover:scale-[1.02]"
                       style={{
                         background: `${NEON_CYAN}08`,
@@ -158,7 +195,7 @@ export default function VitrinRobot() {
                       Salon sahibiyim
                     </button>
                     <button
-                      onClick={() => setPersona('yatirimci')}
+                      onClick={() => handlePersona('yatirimci')}
                       className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-sm text-white/90 transition-all hover:scale-[1.02]"
                       style={{
                         background: `${NEON_PINK}08`,
@@ -166,10 +203,10 @@ export default function VitrinRobot() {
                       }}
                     >
                       <TrendingUp size={18} style={{ color: NEON_PINK }} />
-                      Yatırımcıyım
+                      Yatirimciyim
                     </button>
                     <button
-                      onClick={() => setPersona('merak')}
+                      onClick={() => handlePersona('merak')}
                       className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-sm text-white/90 transition-all hover:scale-[1.02]"
                       style={{
                         background: 'rgba(255,255,255,0.03)',
@@ -182,40 +219,65 @@ export default function VitrinRobot() {
                   </motion.div>
                 ) : (
                   <motion.div
-                    key={persona}
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -10 }}
-                    className="space-y-4"
+                    key="chat"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="space-y-3"
                   >
-                    <h3 className="text-base font-semibold text-white">
-                      {PERSONA_RESPONSES[persona].title}
-                    </h3>
-                    <p className="text-sm text-white/70 leading-relaxed">
-                      {PERSONA_RESPONSES[persona].text}
-                    </p>
-                    <div className="flex gap-2 pt-1">
-                      <Link
-                        href={PERSONA_RESPONSES[persona].cta.href}
-                        className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold text-white transition-all hover:brightness-110"
-                        style={{
-                          background: `linear-gradient(135deg, ${NEON_CYAN}, ${NEON_PINK})`,
-                        }}
+                    {messages.map((m, i) => (
+                      <div
+                        key={i}
+                        className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
                       >
-                        {PERSONA_RESPONSES[persona].cta.label}
-                        <ArrowRight size={16} />
-                      </Link>
-                      <button
-                        onClick={() => setPersona(null)}
-                        className="px-4 py-3 rounded-xl text-sm text-white/60 border border-white/10 hover:bg-white/5 transition-colors"
-                      >
-                        Geri
-                      </button>
-                    </div>
+                        <div
+                          className={`max-w-[85%] px-3 py-2 rounded-xl text-sm leading-relaxed ${
+                            m.role === 'user'
+                              ? 'bg-[#818cf8]/20 text-white/90 rounded-br-sm'
+                              : 'bg-white/5 text-white/80 rounded-bl-sm'
+                          }`}
+                          style={m.role === 'robot' ? { borderLeft: `2px solid ${NEON_CYAN}40` } : undefined}
+                        >
+                          {m.text}
+                        </div>
+                      </div>
+                    ))}
+                    {loading && (
+                      <div className="flex justify-start">
+                        <div className="px-3 py-2 rounded-xl bg-white/5 text-white/40 text-sm animate-pulse">
+                          Dusunuyor...
+                        </div>
+                      </div>
+                    )}
+                    <div ref={chatEndRef} />
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Chat input (visible only in chat mode) */}
+            {chatMode && (
+              <div className="shrink-0 px-4 pb-4 pt-2 border-t border-white/5">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                    placeholder="Sorunuzu yazin..."
+                    className="flex-1 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#818cf8]/50"
+                  />
+                  <button
+                    onClick={handleSend}
+                    disabled={loading || !input.trim()}
+                    className="px-3 py-2 rounded-xl transition-colors disabled:opacity-30"
+                    style={{ background: `${NEON_CYAN}20`, color: NEON_CYAN }}
+                  >
+                    <SendIcon size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
