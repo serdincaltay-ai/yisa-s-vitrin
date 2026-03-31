@@ -37,17 +37,19 @@ const GENERAL_RESPONSES: Record<string, string> = {
 }
 
 function generateReply(message: string, persona?: string): string {
-  // Persona bazli yanit
-  if (persona && PERSONA_KNOWLEDGE[persona]) {
-    return PERSONA_KNOWLEDGE[persona]
+  // Anahtar kelime eslestirme (once mesaji kontrol et)
+  const lower = message.toLowerCase()
+  if (lower) {
+    for (const [keyword, response] of Object.entries(GENERAL_RESPONSES)) {
+      if (lower.includes(keyword)) {
+        return response
+      }
+    }
   }
 
-  // Anahtar kelime eslestirme
-  const lower = message.toLowerCase()
-  for (const [keyword, response] of Object.entries(GENERAL_RESPONSES)) {
-    if (lower.includes(keyword)) {
-      return response
-    }
+  // Persona bazli yanit (mesajda anahtar kelime bulunamazsa)
+  if (persona && PERSONA_KNOWLEDGE[persona]) {
+    return PERSONA_KNOWLEDGE[persona]
   }
 
   // Varsayilan yanit
