@@ -94,8 +94,10 @@ export default function MultiStepDemoForm({ embedded = false }: Props) {
       if (res.ok) {
         setSuccess(true)
       } else {
-        const json = (await res.json().catch(() => ({}))) as { error?: string }
-        setError(json.error ?? 'Bir hata oluştu. Lütfen tekrar deneyin.')
+        const json = (await res.json().catch(() => ({}))) as { error?: string | { message?: string } }
+        const err = json.error
+        const msg = typeof err === 'string' ? err : (err && typeof err === 'object' && 'message' in err ? err.message : undefined)
+        setError(msg ?? 'Bir hata oluştu. Lütfen tekrar deneyin.')
       }
     } catch {
       setError('Bağlantı hatası. Lütfen tekrar deneyin.')
