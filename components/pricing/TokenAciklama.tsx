@@ -8,32 +8,32 @@ const NEON_CYAN = '#00d4ff'
 const NEON_PINK = '#e94560'
 
 const TOKEN_TIERS = [
-  { students: '1–50', costPerToken: '$0.15', monthly: '1.000 tohum', saving: '' },
-  { students: '51–150', costPerToken: '$0.10', monthly: '3.000 tohum', saving: '%30 tasarruf' },
-  { students: '151–300', costPerToken: '$0.06', monthly: '10.000 tohum', saving: '%60 tasarruf' },
-  { students: '300+', costPerToken: '$0.04', monthly: 'Özel anlaşma', saving: '%76 tasarruf' },
+  { students: 'Standart', costPerToken: '0,50 TL', monthly: '—', saving: '' },
+  { students: 'Profesyonel', costPerToken: '0,50 TL', monthly: '1.200 token', saving: '600 TL değerinde' },
+  { students: 'Kurumsal', costPerToken: '0,50 TL', monthly: '2.500 token', saving: '1.250 TL değerinde' },
+  { students: 'Ek Paket', costPerToken: '0,50 TL', monthly: 'İsteğe bağlı', saving: 'İhtiyaca göre' },
 ]
 
 const TOKEN_FAQ = [
   {
-    q: 'Tohum (token) nedir?',
-    a: 'Tohum, YİSA-S platformundaki AI işlemleri için kullanılan birimdir. Sporcu analizi, rapor oluşturma, PHV hesaplama gibi işlemler tohum tüketir.',
+    q: 'AI token nedir?',
+    a: 'Token, YİSA-S platformundaki AI işlemleri için kullanılan birimdir. Analiz, rapor oluşturma, PHV hesaplama gibi işlemler token tüketir. 2 token = 1 TL.',
   },
   {
-    q: 'Kullanılmayan tohumlar ne olur?',
-    a: 'Kullanılmayan tohumlar bir sonraki aya devreder. Hiçbir tohum boşa gitmez.',
+    q: 'Kullanılmayan tokenlar ne olur?',
+    a: 'Satın aldığınız tokenlar süresiz geçerlidir. Hiçbir token boşa gitmez.',
   },
   {
-    q: 'Tohumum biterse ne olur?',
-    a: 'Ek tohum paketi satın alabilirsiniz. Temel işlevler (yoklama, ödeme takibi vb.) tohum tüketmez.',
+    q: 'Tokenim biterse ne olur?',
+    a: 'Ek token paketi satın alabilirsiniz. Temel işlevler (yoklama, ödeme takibi vb.) token tüketmez.',
   },
   {
-    q: 'Hangi işlemler tohum tüketir?',
-    a: 'AI analiz raporları, 900 alan değerlendirme hesaplaması, PHV takibi, görsel analiz ve otomatik veli bildirimleri tohum tüketir.',
+    q: 'Hangi işlemler token tüketir?',
+    a: 'AI analiz raporları, 900 alan değerlendirme hesaplaması, PHV takibi, görsel analiz ve otomatik bildirimler token tüketir.',
   },
   {
-    q: 'Ek paket satın alabilir miyim?',
-    a: 'Evet. İhtiyaç duyduğunuz kadar ek tohum paketi satın alabilirsiniz. Parça parça alım mümkündür.',
+    q: 'Ek token paketi satın alabilir miyim?',
+    a: 'Evet. İhtiyaç duyduğunuz kadar ek token paketi satın alabilirsiniz. Parça parça alım mümkündür.',
   },
 ]
 
@@ -51,10 +51,10 @@ export default function TokenAciklama() {
           className="text-center mb-10"
         >
           <h2 className="text-3xl font-bold text-white mb-3">
-            <span style={{ color: NEON_CYAN }}>Tohum</span> Nedir?
+            AI <span style={{ color: NEON_CYAN }}>Token</span> Nedir?
           </h2>
           <p className="text-slate-400 max-w-xl mx-auto">
-            YİSA-S&apos;in AI motorlarını besleyen birimdir. Daha fazla sporcu, daha düşük maliyet.
+            YİSA-S&apos;in AI motorlarını besleyen birimdir. 2 token = 1 TL.
           </p>
         </motion.div>
 
@@ -63,20 +63,20 @@ export default function TokenAciklama() {
           {[
             {
               icon: Sprout,
-              title: 'Tohum = AI Kredisi',
-              desc: 'Her AI analizi, rapor ve değerlendirme tohum tüketir. Temel işlevler ücretsizdir.',
+              title: 'Token = AI Kredisi',
+              desc: 'Her AI analizi, rapor ve değerlendirme token tüketir. Temel işlevler ücretsizdir.',
               color: NEON_CYAN,
             },
             {
               icon: TrendingDown,
-              title: 'Hacim Arttıkça Ucuzlar',
-              desc: 'Öğrenci sayısı arttıkça tohum başına maliyet %76\'ya kadar düşer.',
+              title: 'Sabit Fiyat',
+              desc: 'Tüm paketlerde 2 token = 1 TL. Paket büyüdükçe daha fazla token alırsınız.',
               color: NEON_PINK,
             },
             {
               icon: Package,
               title: 'Ek Paket Al',
-              desc: 'Tohumunuz biterse parça parça ek paket satın alabilirsiniz. Devreden tohumlar kaybolmaz.',
+              desc: 'Tokeniniz biterse parça parça ek paket satın alabilirsiniz. Tokenlar süresiz geçerlidir.',
               color: '#10B981',
             },
           ].map((item, i) => (
@@ -114,9 +114,9 @@ export default function TokenAciklama() {
           className="text-center mb-8"
         >
           <h2 className="text-2xl font-bold text-white mb-2">
-            Öğrenci Arttıkça Maliyet Düşer
+            Paket Karşılaştırma
           </h2>
-          <p className="text-slate-400 text-sm">Tohum başına maliyet tablosu</p>
+          <p className="text-slate-400 text-sm">Token başına maliyet tablosu</p>
         </motion.div>
 
         <motion.div
@@ -129,13 +129,13 @@ export default function TokenAciklama() {
             <thead>
               <tr className="bg-slate-800/80">
                 <th className="px-5 py-3.5 text-left text-xs font-semibold text-slate-300 uppercase tracking-wider">
-                  Öğrenci Sayısı
+                  Paket
                 </th>
                 <th className="px-5 py-3.5 text-left text-xs font-semibold text-slate-300 uppercase tracking-wider">
-                  Tohum / Birim
+                  Token Fiyatı
                 </th>
                 <th className="px-5 py-3.5 text-left text-xs font-semibold text-slate-300 uppercase tracking-wider">
-                  Aylık Tohum
+                  Dahil Token
                 </th>
                 <th className="px-5 py-3.5 text-right text-xs font-semibold text-slate-300 uppercase tracking-wider">
                   Tasarruf
@@ -170,7 +170,7 @@ export default function TokenAciklama() {
         </motion.div>
 
         <p className="text-center text-xs text-slate-500 mt-4">
-          * Kullanılmayan tohumlar bir sonraki aya devreder
+          * Satın alınan tokenlar süresiz geçerlidir
         </p>
       </section>
 
@@ -183,7 +183,7 @@ export default function TokenAciklama() {
           className="text-center mb-8"
         >
           <h2 className="text-2xl font-bold text-white mb-2">Sık Sorulan Sorular</h2>
-          <p className="text-slate-400 text-sm">Tohum sistemi hakkında merak edilenler</p>
+          <p className="text-slate-400 text-sm">Token sistemi hakkında merak edilenler</p>
         </motion.div>
 
         <div className="max-w-2xl mx-auto space-y-3">

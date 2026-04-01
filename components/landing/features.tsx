@@ -7,12 +7,12 @@ import { useInView } from "@/hooks/use-in-view"
 const services = [
   { icon: Activity, title: "Yapay Zeka Destekli Yoklama", desc: "QR kod ile giriş-çıkış takibi. Devamsızlık anında veliye otomatik bildirim." },
   { icon: BarChart3, title: "Sporcu Gelişim Takibi", desc: "Boy, kilo, esneklik, kuvvet parametreleri. Yaş normlarıyla kıyaslama. Şampiyonluk hedefi grafikleri." },
-  { icon: MessageSquare, title: "Veli Paneli", desc: "Çocuğunuzun antrenman durumu, gelişim grafikleri, aidat bilgisi tek ekranda." },
+  { icon: MessageSquare, title: "Kullanıcı Paneli", desc: "Sporcu gelişim takibi, antrenman durumu, aidat bilgisi tek ekranda." },
   { icon: GraduationCap, title: "Antrenör Paneli", desc: "Ders programı, sporcu listesi, hareket kütüphanesi, performans girişi. Yapay zeka destekli sistem antrenörlerin gerçek kapasitesinde çalışmalarını sağlar." },
   { icon: CreditCard, title: "Aidat ve Ödeme Yönetimi", desc: "Saat bazlı paketler, otomatik hatırlatma, gecikme takibi, gelir-gider raporu." },
   { icon: Dumbbell, title: "Branş Yönetimi", desc: "6 branş, 300+ branşa özel hareket havuzu. Yapay zeka destekli kontrol ve branşa özgü parametreler." },
   { icon: Users, title: "Franchise Yönetim Sistemi", desc: "Kendi logonuz, kendi renkleriniz, kendi subdomain'iniz. Şablon yükle, tesisiniz hazır." },
-  { icon: Shield, title: "KVKK ve Çocuk Güvenliği", desc: "Çocuklarla çalışıyoruz. Veri koruma, veli rızası, 3 duvar güvenlik. Çocuk verileri en hassas önceliktir." },
+  { icon: Shield, title: "KVKK ve Veri Güvenliği", desc: "Kurumsal düzeyde veri koruma. 3 katmanlı güvenlik, KVKK uyumu, erişim kontrolü." },
   { icon: Sparkles, title: "COO Mağazası", desc: "Hazır şablonlar, logolar, içerikler. Tesisinizi kişiselleştirecek her şey burada." },
   { icon: ClipboardList, title: "İş Takip Sistemi", desc: "Her iş için takip numarası. Başından sonuna kayıt altında. Kim ne yaptı, ne zaman yaptı." },
   { icon: MessageSquare, title: "ManyChat Entegrasyonu", desc: "WhatsApp, Instagram, Facebook üzerinden otomatik iletişim. Veliler mesaj atsın, yapay zeka destekli yanıt versin." },
@@ -32,7 +32,7 @@ export function Features() {
             Spor Kulübü İşletmecilerinin Beklediğinden Daha Fazlası
           </h2>
           <p className="text-base md:text-lg text-white/50 max-w-2xl mx-auto text-pretty">
-            Siz yönetin, yapay zeka destekli sistemler çalıştırsın. Kayıt, aidat, antrenman, çocuk takip - her şey tek kontrol altında.
+            Siz yönetin, yapay zeka destekli sistemler çalıştırsın. Kayıt, aidat, antrenman, performans takip — her şey tek kontrol altında.
           </p>
         </div>
 

@@ -3,11 +3,11 @@
 import { useId, useState } from 'react'
 import { PACKAGES } from '@/lib/knowledge/yisas'
 
-const STEP_LABELS = ['Veli / yetkili', 'Çocuk / branş', 'Kurum & paket', 'Özet'] as const
+const STEP_LABELS = ['Yetkili bilgileri', 'Kurum detayları', 'Paket tercihi', 'Özet'] as const
 
-const AGE_OPTIONS = ['3–6', '7–10', '11–14', '15–18', 'Yalnız yetişkin / genel'] as const
+const SECTOR_OPTIONS = ['Spor tesisi', 'Fitness merkezi', 'Yüzme havuzu', 'Cimnastik salonu', 'Çok branşlı tesis', 'Eğitim kurumu', 'Belediye tesisi', 'Diğer'] as const
 
-const BRANCH_OPTIONS = ['Cimnastik', 'Voleybol', 'Basketbol', 'Futbol', 'Tenis', 'Yüzme', 'Karma / birden fazla', 'Henüz net değil'] as const
+const SIZE_OPTIONS = ['1-50 kullanıcı', '51-100 kullanıcı', '101-250 kullanıcı', '250+ kullanıcı'] as const
 
 type Props = {
   /** Ana sayfa kutusu: başlık gizlenir, input stilleri vitrin koyu temaya yaklaştırılır. */
@@ -24,11 +24,10 @@ export default function MultiStepDemoForm({ embedded = false }: Props) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
-  const [childName, setChildName] = useState('')
-  const [childAge, setChildAge] = useState('')
-  const [childBranch, setChildBranch] = useState('')
   const [company, setCompany] = useState('')
-  const [athletes, setAthletes] = useState('')
+  const [sector, setSector] = useState('')
+  const [facilitySize, setFacilitySize] = useState('')
+  const [branchCount, setBranchCount] = useState('')
   const [pkg, setPkg] = useState('')
   const [message, setMessage] = useState('')
 
@@ -38,9 +37,8 @@ export default function MultiStepDemoForm({ embedded = false }: Props) {
 
   const buildDetailMessage = (): string => {
     const lines: string[] = []
-    if (childName.trim()) lines.push(`Çocuk adı: ${childName.trim()}`)
-    if (childAge) lines.push(`Yaş aralığı: ${childAge}`)
-    if (childBranch) lines.push(`İlgi branşı: ${childBranch}`)
+    if (sector) lines.push(`Sektör: ${sector}`)
+    if (branchCount) lines.push(`Şube sayısı: ${branchCount}`)
     if (message.trim()) lines.push(`Not: ${message.trim()}`)
     return lines.join('\n')
   }
@@ -56,13 +54,13 @@ export default function MultiStepDemoForm({ embedded = false }: Props) {
     setLoading(true)
     const detail = buildDetailMessage()
     const athleteNum =
-      athletes === '1-50'
+      facilitySize === '1-50 kullanıcı'
         ? 25
-        : athletes === '51-100'
+        : facilitySize === '51-100 kullanıcı'
           ? 75
-          : athletes === '101-250'
+          : facilitySize === '101-250 kullanıcı'
             ? 175
-            : athletes === '250+'
+            : facilitySize === '250+ kullanıcı'
               ? 300
               : null
 
@@ -130,7 +128,7 @@ export default function MultiStepDemoForm({ embedded = false }: Props) {
 
   return (
     <form onSubmit={step === 4 ? handleSubmit : (e) => e.preventDefault()} className="space-y-5">
-      {!embedded && <h2 className="text-xl font-semibold text-white mb-2">Tanıtım Talep Formu</h2>}
+      {!embedded && <h2 className="text-xl font-semibold text-white mb-2">Yazılım Teklif Formu</h2>}
       <div className="flex gap-2 mb-4 flex-wrap">
         {STEP_LABELS.map((label, i) => (
           <div
@@ -144,14 +142,14 @@ export default function MultiStepDemoForm({ embedded = false }: Props) {
 
       {step === 1 && (
         <div className="space-y-4">
-          <p className={embedded ? 'text-xs text-white/45' : 'text-sm text-slate-400'}>Veli veya kurum yetkilisi iletişim bilgileri.</p>
+          <p className={embedded ? 'text-xs text-white/45' : 'text-sm text-slate-400'}>Kurum yetkilisi iletişim bilgileri.</p>
           <div>
             <label className={labelCls}>Ad Soyad *</label>
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required className={fieldBase} placeholder="Adınız" />
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required className={fieldBase} placeholder="Adınız Soyadınız" />
           </div>
           <div>
-            <label className={labelCls}>E-posta *</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className={fieldBase} placeholder="ornek@eposta.com" />
+            <label className={labelCls}>Kurumsal E-posta *</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className={fieldBase} placeholder="ornek@kurumunuz.com" />
           </div>
           <div>
             <label className={labelCls}>Telefon</label>
@@ -162,16 +160,16 @@ export default function MultiStepDemoForm({ embedded = false }: Props) {
 
       {step === 2 && (
         <div className="space-y-4">
-          <p className={embedded ? 'text-xs text-white/45' : 'text-sm text-slate-400'}>Çocuk sporcu veya branş ilgisi (isteğe bağlı).</p>
+          <p className={embedded ? 'text-xs text-white/45' : 'text-sm text-slate-400'}>Tesis ve kurum bilgileri.</p>
           <div>
-            <label className={labelCls}>Çocuk adı</label>
-            <input type="text" value={childName} onChange={(e) => setChildName(e.target.value)} className={fieldBase} placeholder="Boş bırakılabilir" />
+            <label className={labelCls}>Kurum / Tesis Adı</label>
+            <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} className={fieldBase} placeholder="Tesis veya şirket adı" />
           </div>
           <div>
-            <label className={labelCls}>Yaş aralığı</label>
-            <select value={childAge} onChange={(e) => setChildAge(e.target.value)} className={fieldBase}>
+            <label className={labelCls}>Sektör</label>
+            <select value={sector} onChange={(e) => setSector(e.target.value)} className={fieldBase}>
               <option value="">Seçiniz</option>
-              {AGE_OPTIONS.map((o) => (
+              {SECTOR_OPTIONS.map((o) => (
                 <option key={o} value={o}>
                   {o}
                 </option>
@@ -179,14 +177,24 @@ export default function MultiStepDemoForm({ embedded = false }: Props) {
             </select>
           </div>
           <div>
-            <label className={labelCls}>İlgi duyulan branş</label>
-            <select value={childBranch} onChange={(e) => setChildBranch(e.target.value)} className={fieldBase}>
+            <label className={labelCls}>Tesis büyüklüğü</label>
+            <select value={facilitySize} onChange={(e) => setFacilitySize(e.target.value)} className={fieldBase}>
               <option value="">Seçiniz</option>
-              {BRANCH_OPTIONS.map((o) => (
+              {SIZE_OPTIONS.map((o) => (
                 <option key={o} value={o}>
                   {o}
                 </option>
               ))}
+            </select>
+          </div>
+          <div>
+            <label className={labelCls}>Şube sayısı</label>
+            <select value={branchCount} onChange={(e) => setBranchCount(e.target.value)} className={fieldBase}>
+              <option value="">Seçiniz</option>
+              <option value="1">Tek şube</option>
+              <option value="2-5">2-5 şube</option>
+              <option value="6-10">6-10 şube</option>
+              <option value="10+">10+ şube</option>
             </select>
           </div>
         </div>
@@ -194,21 +202,7 @@ export default function MultiStepDemoForm({ embedded = false }: Props) {
 
       {step === 3 && (
         <div className="space-y-4">
-          <p className={embedded ? 'text-xs text-white/45' : 'text-sm text-slate-400'}>Kurum ve paket tercihi.</p>
-          <div>
-            <label className={labelCls}>Kurum adı</label>
-            <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} className={fieldBase} placeholder="Spor tesisi / okul adı" />
-          </div>
-          <div>
-            <label className={labelCls}>Sporcu sayısı (yaklaşık)</label>
-            <select value={athletes} onChange={(e) => setAthletes(e.target.value)} className={fieldBase}>
-              <option value="">Seçiniz</option>
-              <option value="1-50">1–50</option>
-              <option value="51-100">51–100</option>
-              <option value="101-250">101–250</option>
-              <option value="250+">250+</option>
-            </select>
-          </div>
+          <p className={embedded ? 'text-xs text-white/45' : 'text-sm text-slate-400'}>Paket tercihi ve ek notlarınız.</p>
           <div>
             <label className={labelCls}>İlgilendiğiniz paket</label>
             <select value={pkg} onChange={(e) => setPkg(e.target.value)} className={fieldBase}>
@@ -216,14 +210,14 @@ export default function MultiStepDemoForm({ embedded = false }: Props) {
               {PACKAGES.map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.name} — {p.currency}
-                  {p.price.toLocaleString('tr-TR')}/{p.period}
+                  {p.price.toLocaleString('tr-TR')} {p.tokenCount > 0 ? `+ ${p.tokenCount.toLocaleString('tr-TR')} token` : ''}
                 </option>
               ))}
             </select>
           </div>
           <div>
-            <label className={labelCls}>Ek not</label>
-            <textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={3} className={`${fieldBase} resize-none`} placeholder="Sorularınız..." />
+            <label className={labelCls}>Ek not / Özel istekler</label>
+            <textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={3} className={`${fieldBase} resize-none`} placeholder="Projeniz hakkında detay, özel istekleriniz..." />
           </div>
         </div>
       )}
@@ -244,20 +238,24 @@ export default function MultiStepDemoForm({ embedded = false }: Props) {
                 <span className={embedded ? 'text-white/40' : 'text-slate-500'}>Telefon:</span> {phone}
               </li>
             )}
-            {(childName || childAge || childBranch) && (
-              <li>
-                <span className={embedded ? 'text-white/40' : 'text-slate-500'}>Çocuk / branş:</span>{' '}
-                {[childName, childAge, childBranch].filter(Boolean).join(' · ') || '—'}
-              </li>
-            )}
             {company && (
               <li>
                 <span className={embedded ? 'text-white/40' : 'text-slate-500'}>Kurum:</span> {company}
               </li>
             )}
-            {athletes && (
+            {sector && (
               <li>
-                <span className={embedded ? 'text-white/40' : 'text-slate-500'}>Sporcu:</span> {athletes}
+                <span className={embedded ? 'text-white/40' : 'text-slate-500'}>Sektör:</span> {sector}
+              </li>
+            )}
+            {facilitySize && (
+              <li>
+                <span className={embedded ? 'text-white/40' : 'text-slate-500'}>Tesis büyüklüğü:</span> {facilitySize}
+              </li>
+            )}
+            {branchCount && (
+              <li>
+                <span className={embedded ? 'text-white/40' : 'text-slate-500'}>Şube:</span> {branchCount}
               </li>
             )}
             {pkg && (
@@ -317,7 +315,7 @@ export default function MultiStepDemoForm({ embedded = false }: Props) {
                 : 'px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-slate-900 font-semibold disabled:opacity-50'
             }
           >
-            {loading ? 'Gönderiliyor...' : 'Demo Talep Et'}
+            {loading ? 'Gönderiliyor...' : 'Teklif Talep Et'}
           </button>
         )}
       </div>

@@ -57,7 +57,7 @@ export default function PricingPreview() {
                   <span className="text-4xl font-bold text-white">
                     {pkg.currency}{pkg.price.toLocaleString('tr-TR')}
                   </span>
-                  <span className="text-slate-400">/{pkg.period}</span>
+                  <span className="text-slate-400 text-sm ml-1">({pkg.period})</span>
                 </div>
                 <p className="text-sm text-slate-500 mt-2">
                   {pkg.athleteLimit === -1 ? 'Sınırsız sporcu' : `${pkg.athleteLimit} sporcu`}
