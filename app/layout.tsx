@@ -13,8 +13,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "YİSA-S — Vitrin",
-  description: "YİSA-S Kurumsal Vitrin Sitesi",
+  title: "YİSA-S — Kurumsal Yazılım Platformu",
+  description: "YİSA-S Spor Tesisi Yönetim Sistemi — Yapay Zeka Destekli Kurumsal Çözümler",
+  manifest: "/manifest.json",
+  themeColor: "#818cf8",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "YİSA-S",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    viewportFit: "cover",
+  },
 };
 
 export default function RootLayout({
@@ -24,6 +38,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
+      <head>
+        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/icon-192.png" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

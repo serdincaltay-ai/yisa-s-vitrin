@@ -5,7 +5,7 @@ import { Play, X, Monitor, Users, Brain, BarChart3 } from "lucide-react"
 
 const highlights = [
   { icon: Monitor, label: "Patron Paneli", desc: "Tüm tesisinizi tek ekrandan yönetin" },
-  { icon: Users, label: "Veli & Antrenör", desc: "Gelişim takibi ve iletişim bir arada" },
+  { icon: Users, label: "Kullanıcı Panelleri", desc: "Rol bazlı paneller ile ekip yönetimi" },
   { icon: Brain, label: "6 AI Motoru", desc: "Yapay zeka destekli sporcu analizi" },
   { icon: BarChart3, label: "900 Alan", desc: "Kapsamlı değerlendirme matrisi" },
 ]
@@ -80,8 +80,8 @@ export function VideoIntro() {
               </div>
               <h3 className="text-2xl font-bold text-white mb-3">Demo Videosu Çok Yakında</h3>
               <p className="text-sm text-white/50 max-w-lg leading-relaxed mb-2">
-                900 alanlı değerlendirme sistemi, 6 AI motoru ve PHV büyüme takibi ile
-                çocuk sporcuların gelişimini nasıl dönüştürdüğümüzü göreceğiniz demo
+                900 alanlı değerlendirme sistemi, 6 AI motoru ve akıllı yönetim araçları ile
+                spor tesislerini nasıl dönüştürdüğümüzü göreceğiniz demo
                 filmimiz hazırlanıyor.
               </p>
               <div className="flex items-center gap-3 mt-4 mb-6">
@@ -95,7 +95,7 @@ export function VideoIntro() {
                 </div>
                 <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
                   <Users className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="text-[11px] text-emerald-400 font-mono">Veli Paneli</span>
+                  <span className="text-[11px] text-emerald-400 font-mono">Kullanıcı Paneli</span>
                 </div>
               </div>
               <a
