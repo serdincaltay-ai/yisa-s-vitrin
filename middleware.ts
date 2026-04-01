@@ -4,8 +4,7 @@ import type { NextRequest } from "next/server";
 /**
  * yisa-s-vitrin middleware
  * Sadece yisa-s.com ve www.yisa-s.com domain'lerini kabul eder.
- * Geliştirme ortamında localhost'a izin verir.
- * Vercel preview deploy'larına izin verir.
+ * Geliştirme ortamında localhost'a, Vercel preview'da *.vercel.app'e izin verir.
  */
 export function middleware(request: NextRequest) {
   const host = request.headers.get("host") || "";
@@ -18,7 +17,7 @@ export function middleware(request: NextRequest) {
   const isDevelopment =
     hostname === "localhost" || hostname === "127.0.0.1";
 
-  // Vercel preview deploy'ları
+  // Vercel preview URL'leri (.vercel.app)
   const isVercelPreview = hostname.endsWith(".vercel.app");
 
   if (!isDevelopment && !isVercelPreview && !allowedHosts.includes(hostname)) {
