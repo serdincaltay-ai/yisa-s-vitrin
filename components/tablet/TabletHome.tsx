@@ -6,16 +6,27 @@ import {
   Sparkles,
   TrendingUp,
   Send,
-  Handshake,
   Award,
   ArrowLeft,
+  Bot,
+  BarChart3,
+  Calendar,
+  Users,
+  Shield,
+  MessageSquare,
+  Coins,
+  CheckCircle2,
+  AlertCircle,
+  Zap,
+  Target,
+  ClipboardList,
 } from 'lucide-react'
 import MultiStepDemoForm from '@/components/demo/MultiStepDemoForm'
 
 const NEON_CYAN = '#00d4ff'
 const NEON_PINK = '#e94560'
 
-type CardKey = 'ozellikler' | 'fiyat' | 'demo' | 'franchise' | 'referanslar' | null
+type CardKey = 'ozellikler' | 'fiyat' | 'demo' | 'referanslar' | null
 
 interface TabletCard {
   key: CardKey & string
@@ -30,8 +41,8 @@ const CARDS: TabletCard[] = [
   {
     key: 'ozellikler',
     icon: <Sparkles className="w-7 h-7" />,
-    title: 'Ozellikler',
-    subtitle: '900 alan, 6 AI motoru',
+    title: 'Ne Yapariz?',
+    subtitle: '6 AI robotu, 900 alan, tam otomasyon',
     color: NEON_CYAN,
     gradient: `linear-gradient(135deg, ${NEON_CYAN}20, ${NEON_CYAN}05)`,
   },
@@ -39,7 +50,7 @@ const CARDS: TabletCard[] = [
     key: 'fiyat',
     icon: <TrendingUp className="w-7 h-7" />,
     title: 'Fiyatlandirma',
-    subtitle: 'Net fiyatlar, guclu altyapi',
+    subtitle: '$3.000 + Token sistemi',
     color: '#818cf8',
     gradient: 'linear-gradient(135deg, #818cf820, #818cf805)',
   },
@@ -52,14 +63,6 @@ const CARDS: TabletCard[] = [
     gradient: 'linear-gradient(135deg, #10b98120, #10b98105)',
   },
   {
-    key: 'franchise',
-    icon: <Handshake className="w-7 h-7" />,
-    title: 'Franchise',
-    subtitle: 'Bolgesel tekel hakki',
-    color: NEON_PINK,
-    gradient: `linear-gradient(135deg, ${NEON_PINK}20, ${NEON_PINK}05)`,
-  },
-  {
     key: 'referanslar',
     icon: <Award className="w-7 h-7" />,
     title: 'Referanslar',
@@ -69,26 +72,147 @@ const CARDS: TabletCard[] = [
   },
 ]
 
-const FEATURES_CONTENT = [
-  { title: '900 Alan Degerlendirme', desc: 'Cocuk sporcularin gelisimini 900 farkli alanda olcun ve takip edin.' },
-  { title: '6 AI Motoru', desc: 'CELF, ASK, Mutfak, Havuz, Kasa ve Guvenlik motorlariyla tesisinizi yonetin.' },
-  { title: 'PHV Buyume Takibi', desc: 'Buyume plagi korumasi ile sporcunun fiziksel gelisimini guvenle izleyin.' },
-  { title: 'Veli Paneli', desc: 'Veliler cocuklarinin gelisimini, yoklamalarini ve odemelerini takip edebilir.' },
-  { title: 'Antrenor Paneli', desc: 'Antrenorler ders planlama, yoklama ve sporcu degerlendirmesi yapabilir.' },
-  { title: 'Robot Asistan', desc: 'Konusan robot avatar ile ziyaretcilere interaktif tanitim saglayin.' },
+/* ========== OZELLIKLER — AI Robotlari + Sistem Ozellikleri ========== */
+
+interface FeatureItem {
+  icon: React.ReactNode
+  title: string
+  desc: string
+  tag: string
+  tagColor: string
+}
+
+const AI_ROBOTS: FeatureItem[] = [
+  {
+    icon: <Calendar className="w-5 h-5" />,
+    title: 'Ders Programi Robotu',
+    desc: 'Haftalik ders programlarini otomatik olusturur. Antrenor musaitligi, salon kapasitesi ve brans kurallarini dikkate alir.',
+    tag: 'Aktif',
+    tagColor: '#10b981',
+  },
+  {
+    icon: <MessageSquare className="w-5 h-5" />,
+    title: 'Sosyal Medya Robotu',
+    desc: 'Instagram, Facebook, YouTube ve Google isletme hesaplarinizi otomatik yonetir. Icerik uretir, paylasir ve etkilesim analizi yapar.',
+    tag: 'Aktif',
+    tagColor: '#10b981',
+  },
+  {
+    icon: <BarChart3 className="w-5 h-5" />,
+    title: 'Muhasebe Robotu',
+    desc: 'Fatura, aidat takibi, token hesaplama ve gelir-gider raporlarini otomatik olusturur. Kasa kapanislarini yonetir.',
+    tag: 'Aktif',
+    tagColor: '#10b981',
+  },
+  {
+    icon: <Users className="w-5 h-5" />,
+    title: 'Iletisim Robotu',
+    desc: 'Veli bildirimleri, otomatik SMS/WhatsApp mesajlari ve randevu hatirlatmalarini yonetir.',
+    tag: 'Aktif',
+    tagColor: '#10b981',
+  },
+  {
+    icon: <Shield className="w-5 h-5" />,
+    title: 'Guvenlik Robotu',
+    desc: 'RFID cihaz takibi, supheli giris alarmi ve tesis guvenlik protokollerini yonetir.',
+    tag: 'Eklenti',
+    tagColor: '#f59e0b',
+  },
+  {
+    icon: <Bot className="w-5 h-5" />,
+    title: 'Ana Sayfa Robotu',
+    desc: 'Tesis web sitesine gelen ziyaretcileri karsilar, branslar hakkinda bilgi verir ve kayit formuna yonlendirir.',
+    tag: 'Eklenti',
+    tagColor: '#f59e0b',
+  },
 ]
 
-const PRICING_CONTENT = [
-  { name: 'Baslangic', price: '2.500 TL/ay', features: '50 sporcu, temel olcumler, yoklama, odeme takibi' },
-  { name: 'Profesyonel', price: '7.500 TL/ay', features: '250 sporcu, 900 alan, PHV, 6 AI motoru, veli + antrenor paneli', popular: true },
-  { name: 'Kurumsal', price: '15.000 TL/ay', features: 'Sinirsiz sporcu, sinirsiz sube, ozel API, 7/24 destek, beyaz etiket' },
+const SYSTEM_FEATURES: FeatureItem[] = [
+  {
+    icon: <Target className="w-5 h-5" />,
+    title: '900 Alan Olcum Sistemi',
+    desc: 'Cocuk sporcularin fiziksel, teknik ve bilissel gelisimini 900 farkli parametrede olcun. PHV buyume plagi korumasi dahil.',
+    tag: 'Temel',
+    tagColor: NEON_CYAN,
+  },
+  {
+    icon: <ClipboardList className="w-5 h-5" />,
+    title: 'Yoklama & Devamsizlik',
+    desc: 'QR kod veya RFID ile otomatik yoklama. Devamsizlik durumunda veliye aninda bildirim gider.',
+    tag: 'Temel',
+    tagColor: NEON_CYAN,
+  },
+  {
+    icon: <Users className="w-5 h-5" />,
+    title: 'Veli & Antrenor Paneli',
+    desc: 'Veliler cocuklarinin gelisimini, antrenorler ders planlarini ve sporcu notlarini kendi panellerinden takip eder.',
+    tag: 'Temel',
+    tagColor: NEON_CYAN,
+  },
+  {
+    icon: <Zap className="w-5 h-5" />,
+    title: 'Coklu Sube Yonetimi',
+    desc: 'Tek panelden birden fazla subeyi yonetin. Sube bazli raporlama, personel atamalari ve performans karsilastirmasi.',
+    tag: 'Temel',
+    tagColor: NEON_CYAN,
+  },
 ]
 
-const FRANCHISE_CONTENT = [
-  { title: 'Bolgesel Tekel', desc: 'Sehrinizde tek YiSA-S bayisi olarak calismaya baslayin.' },
-  { title: 'Giris Bedeli', desc: '50.000 TL giris bedeli ile hazir is modeli.' },
-  { title: 'Kapsamli Egitim', desc: 'Sistem egitimi, teknik destek ve pazarlama destegi.' },
-  { title: 'Hizli ROI', desc: 'Ortalama 6 ayda yatirim geri donusu.' },
+/* ========== FIYATLANDIRMA — $3000 + Token ========== */
+
+const PRICING_PLANS = [
+  {
+    name: 'Standart',
+    price: '$3.000',
+    period: 'tek seferlik lisans',
+    desc: 'Tek sube, tek brans',
+    features: [
+      'Tam yazilim erisimi',
+      '6 AI robotu dahil',
+      '900 alan olcum sistemi',
+      'Veli + antrenor paneli',
+      'Temel destek (e-posta)',
+    ],
+    note: 'Token dahil degil — kullandikca odersiniz',
+    popular: false,
+  },
+  {
+    name: 'Standart + 1.500 Token',
+    price: '$3.000 + $750',
+    period: 'lisans + token paketi',
+    desc: 'Tek sube, coklu brans',
+    features: [
+      'Standart tum ozellikler',
+      '1.500 token (= 750 TL kredi)',
+      'Coklu brans destegi',
+      'Oncelikli destek',
+      'Aylik kullanim raporu',
+    ],
+    note: 'Token ile AI islemleri %40 daha ucuz',
+    popular: true,
+  },
+  {
+    name: 'Standart + 2.500 Token',
+    price: '$3.000 + $1.250',
+    period: 'lisans + buyuk token paketi',
+    desc: 'Cok sube veya yogun kullanim',
+    features: [
+      'Standart tum ozellikler',
+      '2.500 token (= 1.250 TL kredi)',
+      'Sinirsiz sube',
+      '7/24 oncelikli destek',
+      'Beyaz etiket secenegi',
+    ],
+    note: 'En uygun birim fiyat — token basi %50 indirim',
+    popular: false,
+  },
+]
+
+const TOKEN_INFO = [
+  { title: 'Token Nedir?', desc: 'Token, YiSA-S platformundaki AI islemleri icin kullanilan kredi birimidir. 2 token = 1 TL degerindedir.' },
+  { title: 'Nerede Kullanilir?', desc: 'Ders programi olusturma, sosyal medya icerik uretimi, otomatik raporlama, veli bildirim gonderimi ve tum AI robot islemleri token harcar.' },
+  { title: 'Neden Token Almali?', desc: 'Paket halinde token almak, tek tek kullanima gore %40-50 daha ucuzdur. Paket almazsaniz her AI islemi icin ayri ayri odeme yaparsiniz — bu uzun vadede daha pahaliya gelir.' },
+  { title: 'Token Biter mi?', desc: 'Tokenleriniz bittiginde AI robotlari durmaz — kullandikca otomatik faturalanir. Ancak birim fiyat paket fiyatina gore daha yuksektir.' },
 ]
 
 const REFERENCES_CONTENT = [
@@ -97,6 +221,8 @@ const REFERENCES_CONTENT = [
   { name: 'Fenerbahce Genclik', sport: 'Voleybol', athletes: '60+ sporcu' },
   { name: 'Istanbul Spor Kulubu', sport: 'Atletizm + Tenis', athletes: '95+ sporcu' },
 ]
+
+/* ========== CARD DETAIL — Section-based like reference site ========== */
 
 function CardDetail({ cardKey, onBack }: { cardKey: CardKey & string; onBack: () => void }) {
   const card = CARDS.find((c) => c.key === cardKey)
@@ -124,53 +250,142 @@ function CardDetail({ cardKey, onBack }: { cardKey: CardKey & string; onBack: ()
       </div>
 
       <div className="flex-1 overflow-y-auto p-6">
+        {/* ===== OZELLIKLER ===== */}
         {cardKey === 'ozellikler' && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {FEATURES_CONTENT.map((f) => (
-              <div key={f.title} className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
-                <h3 className="text-sm font-bold text-white mb-1">{f.title}</h3>
-                <p className="text-xs text-white/50">{f.desc}</p>
+          <div className="space-y-8">
+            {/* Slogan */}
+            <div className="text-center pb-4">
+              <p className="text-xs font-mono tracking-widest text-cyan-400 uppercase mb-2">/ Satin Alinabilir AI Eklentileri</p>
+              <h3 className="text-xl font-bold text-white mb-2">AI Robot Direktorleri</h3>
+              <p className="text-sm text-white/50">Her robot bagimsiz calisir. Ihtiyaciniz olana ekleyin, 7/24 calissin.</p>
+            </div>
+
+            {/* AI Robots Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {AI_ROBOTS.map((r) => (
+                <div key={r.title} className="p-4 rounded-xl border border-white/10 bg-white/[0.02] hover:border-white/20 transition-colors">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2" style={{ color: r.tagColor }}>
+                      {r.icon}
+                      <span className="text-xs font-bold truncate">{r.title}</span>
+                    </div>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full" style={{ background: `${r.tagColor}15`, color: r.tagColor }}>
+                      {r.tag}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-white/50 leading-relaxed">{r.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom badge */}
+            <div className="flex justify-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+                <Bot className="w-4 h-4 text-cyan-400" />
+                <span className="text-xs text-white/60">6 robot, sonsuz otomasyon, 0 ek personel.</span>
               </div>
-            ))}
+            </div>
+
+            {/* System Features Section */}
+            <div className="text-center pt-4 pb-2">
+              <p className="text-xs font-mono tracking-widest text-cyan-400 uppercase mb-2">/ Sistem Ozellikleri</p>
+              <h3 className="text-xl font-bold text-white mb-2">Tesisinizi Bastan Sona Yonetin</h3>
+              <p className="text-sm text-white/50">Olcumden odemeye, yoklamadan rapora — tek platform.</p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {SYSTEM_FEATURES.map((f) => (
+                <div key={f.title} className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+                  <div className="flex items-center gap-2 mb-2" style={{ color: f.tagColor }}>
+                    {f.icon}
+                    <h4 className="text-sm font-bold text-white">{f.title}</h4>
+                  </div>
+                  <p className="text-[11px] text-white/50 leading-relaxed">{f.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom badge */}
+            <div className="flex justify-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-400/5 border border-cyan-400/20">
+                <CheckCircle2 className="w-4 h-4 text-cyan-400" />
+                <span className="text-xs text-white/60">6 temel surec, tek platform, sifir kagit.</span>
+              </div>
+            </div>
           </div>
         )}
 
+        {/* ===== FIYATLANDIRMA ===== */}
         {cardKey === 'fiyat' && (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {PRICING_CONTENT.map((p) => (
-              <div
-                key={p.name}
-                className={`p-5 rounded-xl border ${p.popular ? 'border-[#818cf8]/50 bg-[#818cf8]/5' : 'border-white/10 bg-white/[0.02]'}`}
-              >
-                <h3 className="text-base font-bold text-white">{p.name}</h3>
-                <p className="text-xl font-bold mt-2" style={{ color: p.popular ? '#818cf8' : 'white' }}>{p.price}</p>
-                <p className="text-xs text-white/50 mt-2">{p.features}</p>
-                {p.popular && <span className="inline-block mt-3 text-xs font-mono text-[#818cf8] bg-[#818cf8]/10 px-2 py-1 rounded">EN POPULER</span>}
-              </div>
-            ))}
+          <div className="space-y-8">
+            {/* Slogan */}
+            <div className="text-center pb-2">
+              <p className="text-xs font-mono tracking-widest text-[#818cf8] uppercase mb-2">/ Fiyatlandirma</p>
+              <h3 className="text-xl font-bold text-white mb-1">$3.000 Yazilim Lisansi + Token</h3>
+              <p className="text-sm text-white/50">Yazilim sabit fiyat. AI islemleri icin token kullanin — paket alirsan ucuza gelir.</p>
+            </div>
+
+            {/* Pricing Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {PRICING_PLANS.map((p) => (
+                <div
+                  key={p.name}
+                  className={`relative p-5 rounded-xl border ${p.popular ? 'border-[#818cf8]/50 bg-[#818cf8]/5' : 'border-white/10 bg-white/[0.02]'}`}
+                >
+                  {p.popular && (
+                    <div className="absolute -top-3 right-4 text-[10px] font-mono text-[#818cf8] bg-[#818cf8]/10 px-3 py-1 rounded-full border border-[#818cf8]/30">
+                      EN POPULER
+                    </div>
+                  )}
+                  <h3 className="text-sm font-bold text-white mb-1">{p.name}</h3>
+                  <p className="text-xs text-white/40 mb-3">{p.desc}</p>
+                  <p className="text-2xl font-bold mb-1" style={{ color: p.popular ? '#818cf8' : 'white' }}>{p.price}</p>
+                  <p className="text-[10px] text-white/30 font-mono mb-4">{p.period}</p>
+                  <ul className="space-y-2 mb-4">
+                    {p.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-[11px] text-white/60">
+                        <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 shrink-0 text-emerald-400" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="flex items-start gap-2 p-2 rounded-lg bg-white/5">
+                    <AlertCircle className="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-400" />
+                    <p className="text-[10px] text-white/40">{p.note}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Token Aciklama */}
+            <div className="text-center pt-2 pb-2">
+              <p className="text-xs font-mono tracking-widest text-amber-400 uppercase mb-2">/ Token Sistemi</p>
+              <h3 className="text-lg font-bold text-white mb-1">Token Nedir, Neden Gerekli?</h3>
+              <p className="text-sm text-white/50">2 token = 1 TL. Paket halinde alin, %50&apos;ye varan tasarruf edin.</p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {TOKEN_INFO.map((t) => (
+                <div key={t.title} className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Coins className="w-4 h-4 text-amber-400" />
+                    <h4 className="text-sm font-bold text-white">{t.title}</h4>
+                  </div>
+                  <p className="text-[11px] text-white/50 leading-relaxed">{t.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
+        {/* ===== DEMO ===== */}
         {cardKey === 'demo' && (
           <div className="max-w-md mx-auto">
             <MultiStepDemoForm embedded />
           </div>
         )}
 
-        {cardKey === 'franchise' && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {FRANCHISE_CONTENT.map((f) => (
-              <div key={f.title} className="p-4 rounded-xl border border-white/10 bg-white/[0.02]">
-                <h3 className="text-sm font-bold text-white mb-1">{f.title}</h3>
-                <p className="text-xs text-white/50">{f.desc}</p>
-              </div>
-            ))}
-            <div className="sm:col-span-2 p-4 rounded-xl border border-[#e94560]/30 bg-[#e94560]/5 text-center">
-              <p className="text-sm text-white/80">Basvuru icin: <strong className="text-white">franchise@yisa-s.com</strong></p>
-            </div>
-          </div>
-        )}
-
+        {/* ===== REFERANSLAR ===== */}
         {cardKey === 'referanslar' && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {REFERENCES_CONTENT.map((r) => (
@@ -203,19 +418,24 @@ export default function TabletHome() {
           </div>
           <div>
             <h1 className="text-lg font-bold text-white tracking-tight">YiSA-S</h1>
-            <p className="text-[10px] font-mono text-white/30 tracking-widest uppercase">Spor Yonetim Sistemi</p>
+            <p className="text-[10px] font-mono text-white/30 tracking-widest uppercase">AI Destekli Spor Tesisi Yonetim Platformu</p>
           </div>
         </div>
-        <div className="text-xs font-mono text-white/20">v2.0 Tablet</div>
+        <div className="text-xs font-mono text-white/20">v3.0</div>
       </header>
 
-      {/* Card grid — no scroll, fills viewport */}
-      <main className="flex-1 p-4 sm:p-6 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 auto-rows-fr">
-        {CARDS.map((card, i) => (
+      {/* Slogan */}
+      <div className="text-center px-6 pt-4 pb-2 shrink-0">
+        <p className="text-xs font-mono text-cyan-400/60 tracking-widest uppercase">Teknolojiyi Spora Baslatiyoruz</p>
+      </div>
+
+      {/* Card grid — 2x2 layout */}
+      <main className="flex-1 p-4 sm:p-6 grid grid-cols-2 gap-3 sm:gap-4 auto-rows-fr">
+        {CARDS.map((card) => (
           <motion.button
             key={card.key}
             onClick={() => setActiveCard(card.key as CardKey)}
-            className={`relative flex flex-col items-center justify-center rounded-2xl border border-white/10 p-4 text-center transition-all hover:border-white/20 hover:scale-[1.02] active:scale-[0.98] ${i === 4 ? 'col-span-2 sm:col-span-1' : ''}`}
+            className="relative flex flex-col items-center justify-center rounded-2xl border border-white/10 p-4 text-center transition-all hover:border-white/20 hover:scale-[1.02] active:scale-[0.98]"
             style={{ background: card.gradient }}
             whileHover={{ boxShadow: `0 0 30px ${card.color}15` }}
           >
