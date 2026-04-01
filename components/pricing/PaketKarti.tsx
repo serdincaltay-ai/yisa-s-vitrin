@@ -75,7 +75,7 @@ export default function PaketKarti({
             <span className="text-4xl font-extrabold text-white">
               {paket.currency}{paket.price.toLocaleString('tr-TR')}
             </span>
-            <span className="text-slate-400 text-sm">/{paket.period}</span>
+            <span className="text-slate-400 text-sm ml-1">({paket.period})</span>
           </div>
         </div>
 

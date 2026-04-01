@@ -4,10 +4,10 @@ import FiyatlandirmaContent from './FiyatlandirmaContent'
 
 export const metadata: Metadata = {
   title: 'Fiyatlandırma',
-  description: 'YİSA-S paketleri: Standart, Orta ve Premium. Token tabanlı fiyatlandırma ile ihtiyacınıza uygun planı seçin.',
+  description: 'YİSA-S paketleri: Standart, Profesyonel ve Kurumsal. Tek seferlik lisans + AI token paketi ile ihtiyacınıza uygun planı seçin.',
   openGraph: {
-    title: 'YİSA-S Fiyatlandırma — Standart, Orta, Premium',
-    description: 'Token tabanlı fiyatlandırma. 14 gün ücretsiz deneme. Kullanılmayan tohumlar bir sonraki aya devreder.',
+    title: 'YİSA-S Fiyatlandırma — Standart, Profesyonel, Kurumsal',
+    description: 'Tek seferlik $3.000 lisans + AI token paketi. 14 gün ücretsiz deneme. 2 token = 1 TL.',
     url: 'https://yisa-s.com/fiyatlandirma',
   },
 }

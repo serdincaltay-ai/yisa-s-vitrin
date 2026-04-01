@@ -1,61 +1,66 @@
 "use client"
 
-import { Check, Star } from "lucide-react"
+import { Check, X, Star, Coins } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useInView } from "@/hooks/use-in-view"
 
 const packages = [
   {
-    name: "Başlangıç",
-    price: "2.500₺",
-    period: "ay",
-    desc: "Küçük spor okulları için ideal başlangıç paketi",
+    name: "Standart",
+    price: "$3.000",
+    tokenInfo: null as string | null,
+    tokenNote: null as string | null,
+    desc: "Temel yazılım paketi — kurulum ve lisans dahil",
     features: [
-      "50 sporcu kapasitesi",
-      "Temel ölçümler",
-      "Haftalık gözlemler",
+      "Temel yazılım lisansı",
+      "Kurulum ve yapılandırma",
       "Yoklama sistemi",
       "Ödeme takibi",
       "E-posta desteği",
+      "Temel raporlama",
     ],
+    excluded: ["AI token paketi", "Gelişmiş analiz"],
     popular: false,
-    cta: "Başla",
+    cta: "Paket Seç",
   },
   {
     name: "Profesyonel",
-    price: "7.500₺",
-    period: "ay",
-    desc: "Büyüyen tesisler için gelişmiş özellikler",
+    price: "$3.000",
+    tokenInfo: "+ 1.200 Token",
+    tokenNote: "2 token = 1 TL (600 TL değerinde)",
+    desc: "Yazılım + AI token paketi — gelişmiş özellikler",
     features: [
-      "250 sporcu kapasitesi",
-      "900 alan değerlendirme",
-      "PHV büyüme takibi",
-      "6 AI motoru erişimi",
-      "Veli paneli",
-      "Antrenör paneli",
+      "Standart paketin tüm özellikleri",
+      "1.200 AI token dahil",
       "Gelişmiş raporlama",
+      "900 alan değerlendirme",
+      "WhatsApp entegrasyonu",
+      "6 AI motoru analizi",
       "Öncelikli destek",
     ],
+    excluded: [],
     popular: true,
-    cta: "Demo Talep Et",
+    cta: "Paket Seç",
   },
   {
     name: "Kurumsal",
-    price: "15.000₺",
-    period: "ay",
-    desc: "Çoklu tesis, sınırsız kapasite",
+    price: "$3.000",
+    tokenInfo: "+ 2.500 Token",
+    tokenNote: "2 token = 1 TL (1.250 TL değerinde)",
+    desc: "Tam donanımlı kurumsal paket — sınırsız kapasite",
     features: [
-      "Sınırsız sporcu",
-      "Sınırsız şube",
-      "Özel API entegrasyonu",
-      "7/24 özel destek",
-      "Eğitim ve danışmanlık",
-      "Beyaz etiket çözüm",
-      "Özel robot geliştirme",
+      "Profesyonel paketin tüm özellikleri",
+      "2.500 AI token dahil",
+      "Sınırsız kullanıcı",
+      "Çoklu şube desteği",
+      "Beyaz etiket (kendi logonuz)",
+      "API erişimi",
+      "Dedicated hesap yöneticisi",
       "SLA garantisi",
     ],
+    excluded: [],
     popular: false,
-    cta: "Bizimle Konuşun",
+    cta: "Paket Seç",
   },
 ]
 
@@ -71,7 +76,7 @@ export function Pricing() {
             Net Fiyatlar, Güçlü Altyapı
           </h2>
           <p className="text-sm md:text-base text-white/50 max-w-2xl mx-auto text-pretty">
-            Yapay zeka destekli antrenman programı, sporcu gelişim takibi ve veli paneli tüm paketlere dahildir.
+            Tek seferlik yazılım lisans bedeli. Token paketleri ile yapay zeka özelliklerini etkinleştirin.
           </p>
         </div>
 
@@ -95,17 +100,32 @@ export function Pricing() {
                 <p className="text-sm text-white/40 mt-1">{pkg.desc}</p>
               </div>
 
-              <div className="mb-6">
+              <div className="mb-2">
                 <span className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">{pkg.price}</span>
-                {pkg.period && <span className="text-sm text-white/40 ml-2">/ {pkg.period}</span>}
-                {pkg.name === "Profesyonel" && <span className="ml-2 text-xs text-emerald-400 font-mono">6 AI motoru dahil</span>}
+                {pkg.tokenInfo && (
+                  <div className="flex items-center gap-1.5 mt-2">
+                    <Coins className="w-4 h-4 text-[#f59e0b]" />
+                    <span className="text-base font-bold text-[#f59e0b] font-mono">{pkg.tokenInfo}</span>
+                  </div>
+                )}
               </div>
+
+              {pkg.tokenNote && (
+                <p className="text-xs text-emerald-400 font-mono mb-4">{pkg.tokenNote}</p>
+              )}
+              {!pkg.tokenInfo && <div className="mb-4" />}
 
               <ul className="space-y-3 mb-8 flex-1">
                 {pkg.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                     <span className="text-sm text-white/50">{feature}</span>
+                  </li>
+                ))}
+                {pkg.excluded.map((feature) => (
+                  <li key={feature} className="flex items-start gap-2">
+                    <X className="w-4 h-4 text-white/20 shrink-0 mt-0.5" />
+                    <span className="text-sm text-white/30 line-through">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -120,8 +140,14 @@ export function Pricing() {
           ))}
         </div>
 
-        <p className="text-center text-xs text-white/30 mt-8 font-mono">
-          Tüm paketlere dahil: sporcu takip sistemi, yoklama ve ödeme yönetimi. Üst paketlerde AI analiz, PHV takibi ve gelişmiş raporlama.
+        <div className="mt-8 p-4 rounded-xl border border-[#f59e0b]/20 bg-[#f59e0b]/5 text-center">
+          <p className="text-sm text-[#f59e0b] font-mono">
+            Token Hesaplama: 2 token = 1 TL | 1.200 token = 600 TL | 2.500 token = 1.250 TL
+          </p>
+        </div>
+
+        <p className="text-center text-xs text-white/30 mt-6 font-mono">
+          Tüm paketler tek seferlik lisans bedelidir. Ek token ihtiyacınızda ayrıca paket satın alabilirsiniz.
         </p>
       </div>
     </section>
