@@ -15,6 +15,7 @@ export type PaketData = {
   price: number
   currency: string
   period: string
+  priceDisplay?: string
   studentLimit: string
   tokenLimit: string
   features: PaketFeature[]
@@ -73,7 +74,7 @@ export default function PaketKarti({
           <h3 className="text-xl font-bold text-white mb-1">{paket.name}</h3>
           <div className="flex items-baseline justify-center gap-1 mt-3">
             <span className="text-4xl font-extrabold text-white">
-              {paket.currency}{paket.price.toLocaleString('tr-TR')}
+              {paket.priceDisplay || `${paket.currency}${paket.price.toLocaleString('tr-TR')}`}
             </span>
             <span className="text-slate-400 text-sm ml-1">({paket.period})</span>
           </div>
