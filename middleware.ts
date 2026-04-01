@@ -3,8 +3,8 @@ import type { NextRequest } from "next/server";
 
 /**
  * yisa-s-vitrin middleware
- * yisa-s.com / www.yisa-s.com domain'lerini kabul eder.
- * Geliştirme ortamında localhost'a ve Vercel preview (*.vercel.app) domainlerine izin verir.
+ * Sadece yisa-s.com ve www.yisa-s.com domain'lerini kabul eder.
+ * Geliştirme ortamında localhost'a, Vercel preview'da *.vercel.app'e izin verir.
  */
 export function middleware(request: NextRequest) {
   const host = request.headers.get("host") || "";
@@ -16,6 +16,7 @@ export function middleware(request: NextRequest) {
   // Geliştirme ortamı kontrolü
   const isDevelopment =
     hostname === "localhost" || hostname === "127.0.0.1";
+  // Vercel preview URL'leri (.vercel.app)
   const isVercelPreview = hostname.endsWith(".vercel.app");
 
   if (!isDevelopment && !isVercelPreview && !allowedHosts.includes(hostname)) {
