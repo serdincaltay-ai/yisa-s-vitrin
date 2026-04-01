@@ -267,7 +267,7 @@ export const PACKAGES = [
     popular: false,
     description: 'Tam donanımlı kurumsal paket — sınırsız kapasite',
     features: [
-      { text: 'Profesyonel paketin tüm özellikleri', included: true },
+      { text: 'Önceki paketin tüm özellikleri', included: true },
       { text: '2.500 AI token (1.250 TL değerinde)', included: true },
       { text: 'Sınırsız kullanıcı', included: true },
       { text: 'Çoklu şube desteği', included: true },

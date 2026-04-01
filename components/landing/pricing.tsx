@@ -49,7 +49,7 @@ const packages = [
     tokenNote: "2 token = 1 TL (1.250 TL değerinde)",
     desc: "Tam donanımlı kurumsal paket — sınırsız kapasite",
     features: [
-      "Profesyonel paketin tüm özellikleri",
+      "Önceki paketin tüm özellikleri",
       "2.500 AI token dahil",
       "Sınırsız kullanıcı",
       "Çoklu şube desteği",
