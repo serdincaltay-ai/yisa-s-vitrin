@@ -16,7 +16,6 @@ export function middleware(request: NextRequest) {
   // Geliştirme ortamı kontrolü
   const isDevelopment =
     hostname === "localhost" || hostname === "127.0.0.1";
-
   // Vercel preview URL'leri (.vercel.app)
   const isVercelPreview = hostname.endsWith(".vercel.app");
 

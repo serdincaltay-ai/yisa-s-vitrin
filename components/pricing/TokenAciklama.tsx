@@ -9,8 +9,8 @@ const NEON_PINK = '#e94560'
 
 const TOKEN_TIERS = [
   { students: 'Standart', costPerToken: '0,50 TL', monthly: '—', saving: '' },
-  { students: 'Profesyonel', costPerToken: '0,50 TL', monthly: '1.200 token', saving: '600 TL değerinde' },
-  { students: 'Kurumsal', costPerToken: '0,50 TL', monthly: '2.500 token', saving: '1.250 TL değerinde' },
+  { students: 'Standart + 1.500 Token', costPerToken: '0,50 TL', monthly: '1.500 token', saving: '750 TL değerinde' },
+  { students: 'Standart + 2.500 Token', costPerToken: '0,50 TL', monthly: '2.500 token', saving: '1.250 TL değerinde' },
   { students: 'Ek Paket', costPerToken: '0,50 TL', monthly: 'İsteğe bağlı', saving: 'İhtiyaca göre' },
 ]
 
