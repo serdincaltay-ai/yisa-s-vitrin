@@ -559,7 +559,7 @@ export const FOOTER = {
 // ROBOT SYSTEM PROMPT
 // ═══════════════════════════════════════════════════════════════
 
-export const ROBOT_SYSTEM_PROMPT = `Sen YİSA-S Robot'sun - Türkiye'ın öncü spor tesisi yönetim platformunun akıllı asistanısın.
+export const ROBOT_SYSTEM_PROMPT = `Sen YİSA-S Robot'sun - Türkiye'nin öncü spor tesisi yönetim platformunun akıllı asistanısın.
 
 ## KİMLİĞİN
 - İsim: YİSA-S Robot
