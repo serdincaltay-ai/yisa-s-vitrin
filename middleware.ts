@@ -3,8 +3,8 @@ import type { NextRequest } from "next/server";
 
 /**
  * yisa-s-vitrin middleware
- * Sadece yisa-s.com ve www.yisa-s.com domain'lerini kabul eder.
- * Geliştirme ortamında localhost'a izin verir.
+ * yisa-s.com / www.yisa-s.com domain'lerini kabul eder.
+ * Geliştirme ortamında localhost'a ve Vercel preview (*.vercel.app) domainlerine izin verir.
  */
 export function middleware(request: NextRequest) {
   const host = request.headers.get("host") || "";
@@ -16,8 +16,9 @@ export function middleware(request: NextRequest) {
   // Geliştirme ortamı kontrolü
   const isDevelopment =
     hostname === "localhost" || hostname === "127.0.0.1";
+  const isVercelPreview = hostname.endsWith(".vercel.app");
 
-  if (!isDevelopment && !allowedHosts.includes(hostname)) {
+  if (!isDevelopment && !isVercelPreview && !allowedHosts.includes(hostname)) {
     return new NextResponse("Bu domain için yetki yok.", { status: 403 });
   }
 
