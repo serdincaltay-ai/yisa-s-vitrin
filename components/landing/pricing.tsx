@@ -24,14 +24,14 @@ const packages = [
     cta: "Paket Seç",
   },
   {
-    name: "Profesyonel",
+    name: "Standart + 1.500 Token",
     price: "$3.000",
-    tokenInfo: "+ 1.200 Token",
-    tokenNote: "2 token = 1 TL (600 TL değerinde)",
+    tokenInfo: "+ 1.500 Token",
+    tokenNote: "2 token = 1 TL (750 TL değerinde)",
     desc: "Yazılım + AI token paketi — gelişmiş özellikler",
     features: [
       "Standart paketin tüm özellikleri",
-      "1.200 AI token dahil",
+      "1.500 AI token dahil",
       "Gelişmiş raporlama",
       "900 alan değerlendirme",
       "WhatsApp entegrasyonu",
@@ -43,13 +43,13 @@ const packages = [
     cta: "Paket Seç",
   },
   {
-    name: "Kurumsal",
+    name: "Standart + 2.500 Token",
     price: "$3.000",
     tokenInfo: "+ 2.500 Token",
     tokenNote: "2 token = 1 TL (1.250 TL değerinde)",
     desc: "Tam donanımlı kurumsal paket — sınırsız kapasite",
     features: [
-      "Profesyonel paketin tüm özellikleri",
+      "Önceki paketin tüm özellikleri",
       "2.500 AI token dahil",
       "Sınırsız kullanıcı",
       "Çoklu şube desteği",
@@ -142,7 +142,7 @@ export function Pricing() {
 
         <div className="mt-8 p-4 rounded-xl border border-[#f59e0b]/20 bg-[#f59e0b]/5 text-center">
           <p className="text-sm text-[#f59e0b] font-mono">
-            Token Hesaplama: 2 token = 1 TL | 1.200 token = 600 TL | 2.500 token = 1.250 TL
+            Token Hesaplama: 2 token = 1 TL | 1.500 token = 750 TL | 2.500 token = 1.250 TL
           </p>
         </div>
 

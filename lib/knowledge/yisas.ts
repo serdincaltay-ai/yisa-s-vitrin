@@ -234,18 +234,18 @@ export const PACKAGES = [
   },
   {
     id: 'profesyonel',
-    name: 'Profesyonel',
+    name: 'Standart + 1.500 Token',
     price: 3000,
     period: 'tek sefer',
     currency: '$',
-    tokenCount: 1200,
-    tokenNote: '1.200 token dahil (2 token = 1 TL)',
+    tokenCount: 1500,
+    tokenNote: '1.500 token dahil (2 token = 1 TL)',
     athleteLimit: 150,
     popular: true,
     description: 'Yazılım + AI token paketi — gelişmiş özellikler',
     features: [
       { text: 'Standart paketin tüm özellikleri', included: true },
-      { text: '1.200 AI token (600 TL değerinde)', included: true },
+      { text: '1.500 AI token (750 TL değerinde)', included: true },
       { text: 'Gelişmiş raporlama', included: true },
       { text: '900 alan değerlendirme', included: true },
       { text: 'Veli mobil paneli', included: true },
@@ -257,7 +257,7 @@ export const PACKAGES = [
   },
   {
     id: 'kurumsal',
-    name: 'Kurumsal',
+    name: 'Standart + 2.500 Token',
     price: 3000,
     period: 'tek sefer',
     currency: '$',
@@ -267,7 +267,7 @@ export const PACKAGES = [
     popular: false,
     description: 'Tam donanımlı kurumsal paket — sınırsız kapasite',
     features: [
-      { text: 'Profesyonel paketin tüm özellikleri', included: true },
+      { text: 'Önceki paketin tüm özellikleri', included: true },
       { text: '2.500 AI token (1.250 TL değerinde)', included: true },
       { text: 'Sınırsız kullanıcı', included: true },
       { text: 'Çoklu şube desteği', included: true },
@@ -376,7 +376,7 @@ export const FAQ = [
     id: 5,
     category: 'Fiyat',
     question: 'Fiyatlar nasıl belirleniyor?',
-    answer: 'Üç paket sunuyoruz: Standart ($3.000 tek sefer — temel yazılım), Profesyonel ($3.000 + 1.200 AI token — gelişmiş özellikler), Kurumsal ($3.000 + 2.500 AI token — sınırsız kapasite). Token hesaplaması: 2 token = 1 TL.',
+    answer: 'Üç paket sunuyoruz: Standart ($3.000 tek sefer — temel yazılım), Standart + 1.500 Token ($3.000 + 1.500 AI token — gelişmiş özellikler), Standart + 2.500 Token ($3.000 + 2.500 AI token — sınırsız kapasite). Token hesaplaması: 2 token = 1 TL.',
   },
   {
     id: 6,
@@ -594,8 +594,8 @@ Artistik Jimnastik, Ritmik Jimnastik, Trampolin, Aerobik, Akrobatik, Parkur, Tea
 | Paket | Ücret | AI Token | Açıklama |
 |-------|-------|----------|----------|
 | Standart | $3.000 (tek sefer) | — | Temel yazılım paketi |
-| Profesyonel | $3.000 (tek sefer) | + 1.200 token | Gelişmiş özellikler |
-| Kurumsal | $3.000 (tek sefer) | + 2.500 token | Sınırsız kapasite |
+| Standart + 1.500 Token | $3.000 (tek sefer) | + 1.500 token | Gelişmiş özellikler |
+| Standart + 2.500 Token | $3.000 (tek sefer) | + 2.500 token | Sınırsız kapasite |
 | Bayilik | ₺50.000 giriş + ₺15.000/ay | Bölgesel tekel | — |
 
 Token hesaplaması: 2 token = 1 TL
