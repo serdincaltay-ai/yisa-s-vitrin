@@ -13,7 +13,7 @@ const PERSONA_KNOWLEDGE: Record<string, string> = {
   salon: `YiSA-S, spor tesisleri icin gelistirilmis tam kapsamli bir yonetim sistemidir. 
 Sporcu takibi, yoklama, odeme, veli iletisimi ve antrenor yonetimi tek platformdan yapilir. 
 900 farkli alanda sporcu degerlendirmesi, PHV buyume plagi takibi ve 6 AI motoru ile fark yaratir. 
-Baslangic paketi aylik 2.500 TL'den baslar. Demo talep edebilirsiniz.`,
+Standart paket $3.000 tek seferlik lisans. Token paketleri ile AI ozelliklerini etkinlestirebilirsiniz. Demo talep edebilirsiniz.`,
 
   yatirimci: `YiSA-S bayilik sistemi bolgesel tekel hakki sunar. 
 50.000 TL giris bedeli ile hazir is modeline sahip olursunuz. 
@@ -29,7 +29,7 @@ Detayli bilgi icin demo talep edebilirsiniz.`,
 
 const GENERAL_RESPONSES: Record<string, string> = {
   merhaba: 'Merhaba! Ben YiSA-S robot asistaniyim. Size nasil yardimci olabilirim? Ozellikler, fiyatlar veya demo hakkinda soru sorabilirsiniz.',
-  fiyat: 'Paketlerimiz: Baslangic 2.500 TL/ay (50 sporcu), Profesyonel 7.500 TL/ay (250 sporcu, 6 AI), Kurumsal 15.000 TL/ay (sinirsiz). Detay icin Fiyatlandirma kartina tiklayabilirsiniz.',
+  fiyat: 'Paketlerimiz: Standart ($3.000 tek sefer — temel yazilim), Standart + 1.500 Token ($3.000 + 1.500 token), Standart + 2.500 Token ($3.000 + 2.500 token). 2 token = 1 TL. Detay icin Fiyatlandirma kartina tiklayabilirsiniz.',
   demo: 'Demo talep etmek icin Demo kartina tiklayabilir veya dogrudan formu doldurabilirsiniz. 30 dakikalik canli gosterim yapiyoruz.',
   ozellik: 'YiSA-S: 900 alan degerlendirme, PHV buyume takibi, 6 AI motoru (CELF, ASK, Mutfak, Havuz, Kasa, Guvenlik), veli paneli, antrenor paneli, robot asistan.',
   franchise: 'Bayilik icin: 50.000 TL giris bedeli, bolgesel tekel hakki, kapsamli egitim ve destek. franchise@yisa-s.com adresine yazabilirsiniz.',

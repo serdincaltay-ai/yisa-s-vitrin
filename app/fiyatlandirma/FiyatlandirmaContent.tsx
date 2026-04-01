@@ -64,7 +64,7 @@ const PAKETLER: PaketData[] = [
     cta: 'Demo Talep Et',
     ctaHref: '/demo',
     features: [
-      { text: 'Profesyonel paketin tum ozellikleri', included: true },
+      { text: 'Onceki paketin tum ozellikleri', included: true },
       { text: '2.500 AI token (= 1.250 TL kredi)', included: true },
       { text: 'Sinirsiz sube destegi', included: true },
       { text: 'Beyaz etiket (kendi logonuz)', included: true },
