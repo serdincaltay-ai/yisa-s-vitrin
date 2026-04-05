@@ -30,10 +30,11 @@ export function IntroAnimation({ onComplete }: Props) {
     }
     setVisible(true)
 
-    // Safety timeout: if animation doesn't complete in 3 seconds, force finish
+    // Safety timeout: if animation doesn't complete in 8 seconds, force finish
+    // Animation sequence takes ~6.2s, so 8s gives enough headroom
     const safetyTimer = setTimeout(() => {
       finish()
-    }, 3000)
+    }, 8000)
     return () => clearTimeout(safetyTimer)
   }, [onComplete, finish])
 
