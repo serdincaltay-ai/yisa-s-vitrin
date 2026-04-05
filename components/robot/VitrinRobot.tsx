@@ -24,9 +24,14 @@ export default function VitrinRobot() {
   const [soundEnabled, setSoundEnabled] = useState(true)
   const [subtitle, setSubtitle] = useState('')
   const chatEndRef = useRef<HTMLDivElement>(null)
+  const soundEnabledRef = useRef(soundEnabled)
+
+  useEffect(() => {
+    soundEnabledRef.current = soundEnabled
+  }, [soundEnabled])
 
   const speak = useCallback((text: string) => {
-    if (typeof window === 'undefined' || !soundEnabled) return
+    if (typeof window === 'undefined' || !soundEnabledRef.current) return
     window.speechSynthesis.cancel()
     const utterance = new SpeechSynthesisUtterance(text)
     utterance.lang = 'tr-TR'
@@ -35,7 +40,7 @@ export default function VitrinRobot() {
     utterance.onend = () => setSubtitle('')
     utterance.onerror = () => setSubtitle('')
     window.speechSynthesis.speak(utterance)
-  }, [soundEnabled])
+  }, [])
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -43,11 +48,10 @@ export default function VitrinRobot() {
 
   // Robot açıldığında otomatik konuşsun
   useEffect(() => {
-    if (open && soundEnabled) {
+    if (open && soundEnabledRef.current) {
       speak('Merhaba, ben YİSA-S. Size nasıl yardımcı olabilirim?')
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open])
+  }, [open, speak])
 
   // Cleanup speech on unmount
   useEffect(() => {
