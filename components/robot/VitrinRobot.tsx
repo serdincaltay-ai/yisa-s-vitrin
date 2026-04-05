@@ -2,12 +2,12 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Building2, TrendingUp, HelpCircle, Send as SendIcon } from 'lucide-react'
+import { X, Building2, HelpCircle, Send as SendIcon } from 'lucide-react'
 
 const NEON_CYAN = '#00d4ff'
 const NEON_PINK = '#e94560'
 
-type PersonaKey = 'salon' | 'yatirimci' | 'merak' | null
+type PersonaKey = 'salon' | 'merak' | null
 
 interface ChatMessage {
   role: 'user' | 'robot'
@@ -193,17 +193,6 @@ export default function VitrinRobot() {
                     >
                       <Building2 size={18} style={{ color: NEON_CYAN }} />
                       Salon sahibiyim
-                    </button>
-                    <button
-                      onClick={() => handlePersona('yatirimci')}
-                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-sm text-white/90 transition-all hover:scale-[1.02]"
-                      style={{
-                        background: `${NEON_PINK}08`,
-                        border: `1px solid ${NEON_PINK}20`,
-                      }}
-                    >
-                      <TrendingUp size={18} style={{ color: NEON_PINK }} />
-                      Yatirimciyim
                     </button>
                     <button
                       onClick={() => handlePersona('merak')}
