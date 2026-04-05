@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Building2, HelpCircle, Send as SendIcon } from 'lucide-react'
+import { X, Building2, HelpCircle, Send as SendIcon, Volume2, VolumeX } from 'lucide-react'
 
 const NEON_CYAN = '#00d4ff'
 const NEON_PINK = '#e94560'
@@ -21,11 +21,46 @@ export default function VitrinRobot() {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
+  const [soundEnabled, setSoundEnabled] = useState(true)
+  const [subtitle, setSubtitle] = useState('')
   const chatEndRef = useRef<HTMLDivElement>(null)
+  const soundEnabledRef = useRef(soundEnabled)
+
+  useEffect(() => {
+    soundEnabledRef.current = soundEnabled
+  }, [soundEnabled])
+
+  const speak = useCallback((text: string) => {
+    if (typeof window === 'undefined' || !soundEnabledRef.current) return
+    window.speechSynthesis.cancel()
+    const utterance = new SpeechSynthesisUtterance(text)
+    utterance.lang = 'tr-TR'
+    utterance.rate = 0.9
+    utterance.onstart = () => setSubtitle(text)
+    utterance.onend = () => setSubtitle('')
+    utterance.onerror = () => setSubtitle('')
+    window.speechSynthesis.speak(utterance)
+  }, [])
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
+
+  // Robot açıldığında otomatik konuşsun
+  useEffect(() => {
+    if (open && soundEnabledRef.current) {
+      speak('Merhaba, ben YİSA-S. Size nasıl yardımcı olabilirim?')
+    }
+  }, [open, speak])
+
+  // Cleanup speech on unmount
+  useEffect(() => {
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.speechSynthesis.cancel()
+      }
+    }
+  }, [])
 
   const handlePersona = async (key: Exclude<PersonaKey, null>) => {
     setPersona(key)
@@ -38,7 +73,9 @@ export default function VitrinRobot() {
         body: JSON.stringify({ message: '', persona: key }),
       })
       const json = await res.json()
-      setMessages([{ role: 'robot', text: json.reply || 'Merhaba!' }])
+      const reply = json.reply || 'Merhaba!'
+      setMessages([{ role: 'robot', text: reply }])
+      speak(reply)
     } catch {
       setMessages([{ role: 'robot', text: 'Baglanti hatasi. Tekrar deneyin.' }])
     } finally {
@@ -59,7 +96,9 @@ export default function VitrinRobot() {
         body: JSON.stringify({ message: msg, persona: persona ?? undefined }),
       })
       const json = await res.json()
-      setMessages((prev) => [...prev, { role: 'robot', text: json.reply || 'Anlayamadim.' }])
+      const reply = json.reply || 'Anlayamadim.'
+      setMessages((prev) => [...prev, { role: 'robot', text: reply }])
+      speak(reply)
     } catch {
       setMessages((prev) => [...prev, { role: 'robot', text: 'Baglanti hatasi.' }])
     } finally {
@@ -68,6 +107,8 @@ export default function VitrinRobot() {
   }
 
   const handleReset = () => {
+    if (typeof window !== 'undefined') window.speechSynthesis.cancel()
+    setSubtitle('')
     setPersona(null)
     setChatMode(false)
     setMessages([])
@@ -164,6 +205,19 @@ export default function VitrinRobot() {
                 </p>
                 <p className="text-[10px] text-white/30 font-mono">Soru sorun, yardimci olayim</p>
               </div>
+              {/* Ses toggle */}
+              <button
+                onClick={() => {
+                  if (typeof window !== 'undefined') window.speechSynthesis.cancel()
+                  setSubtitle('')
+                  setSoundEnabled(!soundEnabled)
+                }}
+                className="p-1.5 rounded transition-colors"
+                style={{ color: soundEnabled ? NEON_CYAN : 'rgba(255,255,255,0.3)' }}
+                title={soundEnabled ? 'Sesi kapat' : 'Sesi aç'}
+              >
+                {soundEnabled ? <Volume2 size={14} /> : <VolumeX size={14} />}
+              </button>
               {chatMode && (
                 <button onClick={handleReset} className="text-xs text-white/30 hover:text-white/60 px-2 py-1 rounded border border-white/10">
                   Sifirla
@@ -243,6 +297,24 @@ export default function VitrinRobot() {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Altyazı şeridi */}
+            <AnimatePresence>
+              {subtitle && (
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 5 }}
+                  className="shrink-0 px-4 py-2 border-t"
+                  style={{ borderColor: `${NEON_CYAN}15`, background: `${NEON_CYAN}05` }}
+                >
+                  <p className="text-xs text-white/70 leading-relaxed">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5 animate-pulse" style={{ background: NEON_CYAN }} />
+                    {subtitle}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Chat input (visible only in chat mode) */}
             {chatMode && (
