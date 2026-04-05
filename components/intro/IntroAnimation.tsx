@@ -29,7 +29,13 @@ export function IntroAnimation({ onComplete }: Props) {
       return
     }
     setVisible(true)
-  }, [onComplete])
+
+    // Safety timeout: if animation doesn't complete in 3 seconds, force finish
+    const safetyTimer = setTimeout(() => {
+      finish()
+    }, 3000)
+    return () => clearTimeout(safetyTimer)
+  }, [onComplete, finish])
 
   useEffect(() => {
     if (!visible) return

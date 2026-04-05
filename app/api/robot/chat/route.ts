@@ -15,15 +15,9 @@ Sporcu takibi, yoklama, odeme, veli iletisimi ve antrenor yonetimi tek platformd
 900 farkli alanda sporcu degerlendirmesi, PHV buyume plagi takibi ve 6 AI motoru ile fark yaratir. 
 Standart paket $3.000 tek seferlik lisans. Token paketleri ile AI ozelliklerini etkinlestirebilirsiniz. Demo talep edebilirsiniz.`,
 
-  yatirimci: `YiSA-S bayilik sistemi bolgesel tekel hakki sunar. 
-50.000 TL giris bedeli ile hazir is modeline sahip olursunuz. 
-Kapsamli egitim, teknik destek ve pazarlama destegi saglanir. 
-Ortalama 6 ayda yatirim geri donusu elde edilir. 
-franchise@yisa-s.com adresinden basvuru yapabilirsiniz.`,
-
   merak: `YiSA-S, cocuk sporcularin gelisimini 900 farkli alanda takip eden, 
 buyume plagi korumasi yapan ve 6 yapay zeka motoruyla analiz eden bir platformdur. 
-Veli paneli, antrenor paneli, yoklama sistemi, odeme takibi ve robot asistan icerr. 
+Veli paneli, antrenor paneli, yoklama sistemi, odeme takibi ve robot asistan icerir. 
 Detayli bilgi icin demo talep edebilirsiniz.`,
 }
 
@@ -32,8 +26,11 @@ const GENERAL_RESPONSES: Record<string, string> = {
   fiyat: 'Paketlerimiz: Standart ($3.000 tek sefer — temel yazilim), Standart + 1.500 Token ($3.000 + 1.500 token), Standart + 2.500 Token ($3.000 + 2.500 token). 2 token = 1 TL. Detay icin Fiyatlandirma kartina tiklayabilirsiniz.',
   demo: 'Demo talep etmek icin Demo kartina tiklayabilir veya dogrudan formu doldurabilirsiniz. 30 dakikalik canli gosterim yapiyoruz.',
   ozellik: 'YiSA-S: 900 alan degerlendirme, PHV buyume takibi, 6 AI motoru (CELF, ASK, Mutfak, Havuz, Kasa, Guvenlik), veli paneli, antrenor paneli, robot asistan.',
-  franchise: 'Bayilik icin: 50.000 TL giris bedeli, bolgesel tekel hakki, kapsamli egitim ve destek. franchise@yisa-s.com adresine yazabilirsiniz.',
   sporcu: 'YiSA-S ile sporcularinizi 900 farkli alanda takip edebilir, buyume plagi durumlarini izleyebilir ve kisisellestirilmis antrenman programlari olusturabilirsiniz.',
+  randevu: 'Demo randevusu almak icin Demo kartindan formu doldurun veya info@yisa-s.com adresine yazin. 30 dakikalik ucretsiz gosterim yapiyoruz.',
+  cocuk: 'YiSA-S, cocugunuzun spor gelisimini 900 farkli alanda takip eder. Veli panelinden yoklama, odeme ve gelisim raporlarini gorebilirsiniz.',
+  veli: 'Veli paneline giris icin kayit sirasinda verilen telefon numaranizi ve son 4 haneyi kullanabilirsiniz. Detay icin tesisinize danisabilirsiniz.',
+  tesis: 'YiSA-S ile tesisinizi dijitallestirin: sporcu kayit, yoklama, odeme takibi, antrenor yonetimi, veli iletisimi ve AI destekli analizler tek platformda.',
 }
 
 function generateReply(message: string, persona?: string): string {
@@ -53,7 +50,7 @@ function generateReply(message: string, persona?: string): string {
   }
 
   // Varsayilan yanit
-  return 'Merhaba! Ben YiSA-S robot asistaniyim. Ozellikler, fiyatlar, demo veya franchise hakkinda soru sorabilirsiniz. Size yardimci olmaktan mutluluk duyarim!'
+  return 'Merhaba! Ben YiSA-S robot asistaniyim. Ozellikler, fiyatlar veya demo hakkinda soru sorabilirsiniz. Size yardimci olmaktan mutluluk duyarim!'
 }
 
 export async function POST(req: NextRequest) {
