@@ -94,13 +94,16 @@ export async function POST(req: NextRequest) {
     const reply = await askGemini(message)
     return NextResponse.json({ ok: true, reply, mode: 'public' })
   } catch (error) {
+    // Beklenen hatalarda istemciye teknik detay döndürmüyoruz.
+    if (error instanceof Error && error.message === 'Gemini API anahtari tanimli degil.') {
+      return NextResponse.json(
+        { error: 'Robot servisi şu anda yapılandırılmamış durumda.' },
+        { status: 503 }
+      )
+    }
+
     return NextResponse.json(
-      {
-        error:
-          error instanceof Error
-            ? error.message
-            : 'Robot yaniti olusturulamadi. Lutfen tekrar deneyin.',
-      },
+      { error: 'Robot yanıtı oluşturulamadı. Lütfen tekrar deneyin.' },
       { status: 500 }
     )
   }

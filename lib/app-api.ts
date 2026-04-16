@@ -98,8 +98,7 @@ export async function proxyToApp(
       headers: { 'Content-Type': upstream.headers.get('Content-Type') || 'application/json' },
     })
     return withCors(res, requestOrigin)
-  } catch (err) {
-    console.error(`[app-api] Proxy error for ${path}:`, err)
+  } catch {
     const res = NextResponse.json(
       { error: 'Üst sunucuya ulaşılamadı.' },
       { status: 502 }
