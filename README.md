@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# YİSA-S Vitrin (yisa-s-vitrin)
 
-## Getting Started
+YİSA-S vitrini, `yisa-s.com` alanında çalışan kurumsal tanıtım uygulamasıdır.  
+Teknoloji: **Next.js 15 + TypeScript + Tailwind + Supabase + Vercel**.
 
-First, run the development server:
+> SSOT kuralı: `docs/SYSTEM_RULES_SSOT.md` dosyasındaki kurallar tüm geliştirmeler için bağlayıcıdır.
+
+## Repo Kapsamı
+
+Bu repo yalnızca vitrin deneyimini içerir:
+- Kurumsal tanıtım sayfaları
+- Fiyatlandırma ve CTA akışları
+- Demo talep formu (`/demo`)
+- Vitrin robot sohbeti (`/api/robot/chat`)
+
+Bu repoda olmaması gerekenler:
+- tenant içi panel akışları
+- patron operasyon panelleri
+- tesis içi yönetim ekranları
+
+## Kurulum
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Uygulama varsayılan olarak `http://localhost:3000` üzerinde açılır.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scriptler
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev         # geliştirme
+npm run lint        # eslint
+npm run typecheck   # tsc --noEmit
+npm run test        # vitest run
+npm run build       # next build
+npm run start       # production server
+```
 
-## Learn More
+## Environment Değişkenleri
 
-To learn more about Next.js, take a look at the following resources:
+`.env.example` dosyasını `.env.local` olarak kopyalayın.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Zorunlu temel değişkenler:
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `NEXT_PUBLIC_SITE_URL` (örn: `https://yisa-s.com`)
+- `NEXT_PUBLIC_APP_API_URL` (örn: `https://app.yisa-s.com`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Demo formu / e-posta için:
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL` (örn: `YiSA-S Vitrin <onboarding@resend.dev>`)
+- `PLATFORM_OWNER_EMAIL` (opsiyonel, yoksa `PATRON_EMAIL` fallback)
 
-## Deploy on Vercel
+Robot (Gemini) için:
+- `GOOGLE_GEMINI_API_KEY` veya `GEMINI_API_KEY`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Demo Akışı
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Vitrin demo form akışı:
+1. Kullanıcı `/demo` sayfasında formu doldurur (`ad`, `telefon`, `şehir`, `branş`)
+2. Form `POST /api/demo` endpoint’ine gider
+3. `demo_requests` tablosuna kayıt eklenir
+4. Platform sahibine Resend üzerinden e-posta bildirimi gönderilir
+5. Kullanıcı `/demo/tesekkurler` sayfasına yönlendirilir
+
+Telefon doğrulama kuralı:  
+Başında `0` olmadan 10 hane (örn: `5307104624`).
+
+## Deploy
+
+Vercel önerilen proje adı: `yisa-s-vitrin`  
+Domainler:
+- `yisa-s.com`
+- `www.yisa-s.com`
+
+Canlıya alma adımları ve ortam değişkenleri için ayrıntılı rehber:
+- `docs/DEPLOY.md`
+
+## CI
+
+GitHub Actions CI workflow:
+- Node 20
+- `npm ci`
+- `npm run lint`
+- `npm run typecheck`
+- `npm run build`
