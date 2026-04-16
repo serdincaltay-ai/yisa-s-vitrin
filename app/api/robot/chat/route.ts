@@ -1,22 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { isRateLimited } from '@/lib/rate-limit'
+import { checkRateLimit, getClientIp } from '@/lib/rate-limit'
 
 export const dynamic = 'force-dynamic'
 
 const GEMINI_MODEL = 'gemini-2.0-flash'
 const GEMINI_API_BASE =
   'https://generativelanguage.googleapis.com/v1beta/models'
-
-function getClientIp(req: NextRequest): string {
-  const xForwardedFor = req.headers.get('x-forwarded-for')
-  if (xForwardedFor) {
-    const first = xForwardedFor.split(',')[0]?.trim()
-    if (first) return first
-  }
-  const xRealIp = req.headers.get('x-real-ip')
-  if (xRealIp) return xRealIp
-  return 'unknown'
-}
 
 function buildSystemPrompt(): string {
   return [
@@ -82,8 +71,9 @@ async function askGemini(message: string): Promise<string> {
 }
 
 export async function POST(req: NextRequest) {
-  const clientIp = getClientIp(req)
-  if (isRateLimited(`robot:${clientIp}`, 10, 60_000)) {
+  const clientIp = getClientIp(req.headers)
+  const rate = checkRateLimit(`robot:${clientIp}`, { limit: 10, windowMs: 60_000 })
+  if (!rate.allowed) {
     return NextResponse.json(
       { error: 'Cok hizli istek gonderdiniz. Lutfen bir dakika bekleyin.' },
       { status: 429 }
