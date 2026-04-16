@@ -1,20 +1,13 @@
 import { Metadata } from 'next'
 import DemoLeadForm from '@/components/demo/DemoLeadForm'
+import { createPageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: 'Demo Talebi',
-  description: 'YİSA-S için demo talebi oluşturun. Ad, telefon, şehir ve branş bilgilerinizi paylaşın.',
-  openGraph: {
-    title: 'YİSA-S Demo Talep Formu',
-    description: 'Tesisiniz için YİSA-S demo talebini hemen oluşturun.',
-    url: 'https://yisa-s.com/demo',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'YİSA-S Demo Talep Formu',
-    description: '14 gün tam erişim, kurulum ve eğitim desteği.',
-  },
-}
+  description:
+    'YİSA-S için demo talebi oluşturun. Ad, telefon, şehir ve branş bilgilerinizi paylaşın.',
+  path: '/demo',
+})
 
 export default function DemoPage() {
   return (

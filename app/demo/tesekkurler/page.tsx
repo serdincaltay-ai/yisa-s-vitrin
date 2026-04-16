@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: 'Demo Talebi Alındı',
-  description: 'Demo talebiniz başarıyla alındı. Ekibimiz en kısa sürede sizinle iletişime geçecektir.',
-  alternates: { canonical: '/demo/tesekkurler' },
-}
+  description:
+    'Demo talebiniz başarıyla alındı. Ekibimiz en kısa sürede sizinle iletişime geçecektir.',
+  path: '/demo/tesekkurler',
+})
 
 export default function DemoTesekkurlerPage() {
   return (

@@ -1,16 +1,11 @@
-// /app/hakkimizda/page.tsx
-import { Metadata } from 'next'
 import HakkimizdaContent from './HakkimizdaContent'
+import { createPageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'Hakkımızda',
   description: 'YİSA-S ekibi, misyonumuz ve iletişim bilgileri.',
-  openGraph: {
-    title: 'Hakkımızda — YİSA-S',
-    description: 'YİSA-S ekibi, misyonumuz ve iletişim bilgileri.',
-    url: 'https://yisa-s.com/hakkimizda',
-  },
-}
+  path: '/hakkimizda',
+})
 
 export default function HakkimizdaPage() {
   return <HakkimizdaContent />

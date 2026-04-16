@@ -1,28 +1,32 @@
 // /app/sitemap.ts
 import { MetadataRoute } from 'next'
+import { SITE_URL } from '@/lib/seo'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://yisa-s.com'
   const now = new Date()
-  return [
-    { url: baseUrl, lastModified: now, changeFrequency: 'weekly', priority: 1 },
-    { url: `${baseUrl}/ozellikler`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/fiyatlandirma`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/franchise`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/demo`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/robot`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/hakkimizda`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${baseUrl}/fuar`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/fuar/tour`, lastModified: now, changeFrequency: 'monthly', priority: 0.4 },
-    { url: `${baseUrl}/sablonlar`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/egitimler`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/kilavuz`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/yardim`, lastModified: now, changeFrequency: 'monthly', priority: 0.4 },
-    { url: `${baseUrl}/kvkk`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${baseUrl}/gizlilik`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${baseUrl}/kullanim-sartlari`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${baseUrl}/cerez-politikasi`, lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
-    { url: `${baseUrl}/tanitim-icerik`, lastModified: now, changeFrequency: 'monthly', priority: 0.4 },
+
+  const pages: Array<{
+    path: string
+    changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency']
+    priority: number
+  }> = [
+    { path: '/', changeFrequency: 'weekly', priority: 1 },
+    { path: '/ozellikler', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/fiyatlandirma', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/demo', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/hakkimizda', changeFrequency: 'monthly', priority: 0.7 },
+    { path: '/fuar', changeFrequency: 'monthly', priority: 0.6 },
+    { path: '/fuar/tour', changeFrequency: 'monthly', priority: 0.6 },
+    { path: '/demo/tesekkurler', changeFrequency: 'monthly', priority: 0.4 },
+    { path: '/kvkk', changeFrequency: 'yearly', priority: 0.3 },
+    { path: '/gizlilik', changeFrequency: 'yearly', priority: 0.3 },
+    { path: '/kullanim-sartlari', changeFrequency: 'yearly', priority: 0.3 },
   ]
+
+  return pages.map((page) => ({
+    url: `${SITE_URL}${page.path}`,
+    lastModified: now,
+    changeFrequency: page.changeFrequency,
+    priority: page.priority,
+  }))
 }

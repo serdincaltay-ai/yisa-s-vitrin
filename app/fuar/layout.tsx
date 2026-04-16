@@ -1,15 +1,12 @@
 import { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: 'Fuar Hesaplama',
   description:
     'YİSA-S fuar katılım maliyeti hesaplama aracı. Stand, ekipman ve personel giderlerini planlayın.',
-  openGraph: {
-    title: 'YİSA-S Fuar Hesaplama',
-    description: 'Fuar katılım maliyetinizi hesaplayın ve planlayın.',
-    url: 'https://yisa-s.com/fuar',
-  },
-}
+  path: '/fuar',
+})
 
 export default function FuarLayout({
   children,
