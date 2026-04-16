@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Building2, HelpCircle, Send as SendIcon, Volume2, VolumeX } from 'lucide-react'
+import { X, Building2, HelpCircle, Send as SendIcon, VolumeX } from 'lucide-react'
 
 const NEON_CYAN = '#00d4ff'
 const NEON_PINK = '#e94560'
@@ -21,7 +21,7 @@ export default function VitrinRobot() {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
-  const [soundEnabled, setSoundEnabled] = useState(true)
+  const [soundEnabled, setSoundEnabled] = useState(false)
   const [subtitle, setSubtitle] = useState('')
   const chatEndRef = useRef<HTMLDivElement>(null)
   const soundEnabledRef = useRef(soundEnabled)
@@ -46,7 +46,7 @@ export default function VitrinRobot() {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  // Robot açıldığında otomatik konuşsun
+  // Mikrofon/ses varsayılan olarak kapalı tutulur.
   useEffect(() => {
     if (open && soundEnabledRef.current) {
       speak('Merhaba, ben YİSA-S. Size nasıl yardımcı olabilirim?')
@@ -205,7 +205,7 @@ export default function VitrinRobot() {
                 </p>
                 <p className="text-[10px] text-white/30 font-mono">Soru sorun, yardimci olayim</p>
               </div>
-              {/* Ses toggle */}
+              {/* Ses kapalı (isteğe bağlı açılabilir) */}
               <button
                 onClick={() => {
                   if (typeof window !== 'undefined') window.speechSynthesis.cancel()
@@ -214,9 +214,9 @@ export default function VitrinRobot() {
                 }}
                 className="p-1.5 rounded transition-colors"
                 style={{ color: soundEnabled ? NEON_CYAN : 'rgba(255,255,255,0.3)' }}
-                title={soundEnabled ? 'Sesi kapat' : 'Sesi aç'}
+                title="Ses durumu"
               >
-                {soundEnabled ? <Volume2 size={14} /> : <VolumeX size={14} />}
+                <VolumeX size={14} />
               </button>
               {chatMode && (
                 <button onClick={handleReset} className="text-xs text-white/30 hover:text-white/60 px-2 py-1 rounded border border-white/10">

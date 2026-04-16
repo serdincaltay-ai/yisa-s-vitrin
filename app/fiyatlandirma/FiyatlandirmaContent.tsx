@@ -84,15 +84,18 @@ export default function FiyatlandirmaContent() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              <span className="text-gradient">$3.000 Lisans + Token</span>
+              <span className="text-gradient">3 Paket + 3.000 USD Aktivasyon</span>
             </h1>
             <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              Yazilim sabit fiyat, AI islemleri icin token kullanin.
-              Paket halinde alin, %50&apos;ye varan tasarruf edin.
+              Aktivasyon bedeli tum paketlerde sabittir. Ihtiyaciniza gore
+              3 paketten birini secin ve demo ile canli akisi gorun.
             </p>
             <p className="text-sm text-slate-500 mt-3">
-              2 token = 1 TL. Token almazsaniz kullandikca odersiniz — paket alirsan ucuza gelir.
+              Tum paketler demo odakli satis akisina baglidir. 2 token = 1 TL.
             </p>
+            <div className="mt-6 inline-flex items-center rounded-full border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-amber-300 text-sm font-medium">
+              3.000 USD aktivasyon bedeli tum paketlerde zorunlu baslangic adimidir.
+            </div>
           </motion.div>
         </div>
       </section>

@@ -1,11 +1,13 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { BRAND } from '@/lib/knowledge/yisas'
+import { createPageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: 'Gizlilik Politikası',
-  description: 'YİSA-S gizlilik politikası ve kişisel veri koruma taahhüdü',
-}
+  description: 'YİSA-S gizlilik politikası ve kişisel veri koruma taahhüdü.',
+  path: '/gizlilik',
+})
 
 export default function GizlilikPage() {
   return (

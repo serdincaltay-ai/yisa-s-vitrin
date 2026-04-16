@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useState, useCallback } from "react"
+import Image from "next/image"
+import { useEffect, useState, useCallback, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 const STORAGE_KEY = "yisa-intro-seen"
@@ -15,6 +16,31 @@ export function IntroAnimation({ onComplete }: Props) {
   const [visible, setVisible] = useState(false)
   const [typingIndex, setTypingIndex] = useState(0)
   const [phase, setPhase] = useState<"init" | "logo" | "scale" | "typing" | "subline" | "exit">("init")
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+
+  const timings = useMemo(() => {
+    if (prefersReducedMotion) {
+      return {
+        logo: 60,
+        scale: 500,
+        typing: 950,
+        subline: 1450,
+        exit: 1900,
+        finish: 2300,
+        safety: 3200,
+      }
+    }
+
+    return {
+      logo: 100,
+      scale: 1100,
+      typing: 2600,
+      subline: 4600,
+      exit: 5600,
+      finish: 6200,
+      safety: 8000,
+    }
+  }, [prefersReducedMotion])
 
   const finish = useCallback(() => {
     if (typeof window !== "undefined") window.sessionStorage.setItem(STORAGE_KEY, "1")
@@ -24,28 +50,38 @@ export function IntroAnimation({ onComplete }: Props) {
 
   useEffect(() => {
     if (typeof window === "undefined") return
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)")
+    setPrefersReducedMotion(media.matches)
+    const listener = (event: MediaQueryListEvent) => {
+      setPrefersReducedMotion(event.matches)
+    }
+    media.addEventListener("change", listener)
+
     if (window.sessionStorage.getItem(STORAGE_KEY)) {
       onComplete()
+      media.removeEventListener("change", listener)
       return
     }
     setVisible(true)
 
-    // Safety timeout: if animation doesn't complete in 8 seconds, force finish
-    // Animation sequence takes ~6.2s, so 8s gives enough headroom
+    // Mobil ve reduced-motion cihazlarda intro daha hızlı kapanır.
     const safetyTimer = setTimeout(() => {
       finish()
-    }, 8000)
-    return () => clearTimeout(safetyTimer)
-  }, [onComplete, finish])
+    }, timings.safety)
+    return () => {
+      clearTimeout(safetyTimer)
+      media.removeEventListener("change", listener)
+    }
+  }, [onComplete, finish, timings.safety])
 
   useEffect(() => {
     if (!visible) return
-    const t1 = setTimeout(() => setPhase("logo"), 100)
-    const t2 = setTimeout(() => setPhase("scale"), 1100)
-    const t3 = setTimeout(() => setPhase("typing"), 2600)
-    const t4 = setTimeout(() => setPhase("subline"), 4600)
-    const t5 = setTimeout(() => setPhase("exit"), 5600)
-    const t6 = setTimeout(() => finish(), 6200)
+    const t1 = setTimeout(() => setPhase("logo"), timings.logo)
+    const t2 = setTimeout(() => setPhase("scale"), timings.scale)
+    const t3 = setTimeout(() => setPhase("typing"), timings.typing)
+    const t4 = setTimeout(() => setPhase("subline"), timings.subline)
+    const t5 = setTimeout(() => setPhase("exit"), timings.exit)
+    const t6 = setTimeout(() => finish(), timings.finish)
     return () => {
       clearTimeout(t1)
       clearTimeout(t2)
@@ -54,14 +90,15 @@ export function IntroAnimation({ onComplete }: Props) {
       clearTimeout(t5)
       clearTimeout(t6)
     }
-  }, [visible, finish])
+  }, [visible, finish, timings])
 
   useEffect(() => {
     if (phase !== "typing") return
     if (typingIndex >= SLOGAN.length) return
-    const t = setTimeout(() => setTypingIndex((i) => i + 1), 2000 / SLOGAN.length)
+    const typingDuration = prefersReducedMotion ? 900 : 2000
+    const t = setTimeout(() => setTypingIndex((i) => i + 1), typingDuration / SLOGAN.length)
     return () => clearTimeout(t)
-  }, [phase, typingIndex])
+  }, [phase, typingIndex, prefersReducedMotion])
 
   if (!visible) return null
 
@@ -106,18 +143,13 @@ export function IntroAnimation({ onComplete }: Props) {
                 aria-hidden
               />
               <div className="relative w-32 h-32 sm:w-40 sm:h-40 flex items-center justify-center">
-                <img
-                  src="/icons/icon-192.svg"
+                <Image
+                  src="/icon.svg"
                   alt="YİSA-S"
                   width={160}
                   height={160}
                   className="w-full h-full object-contain"
-                  onError={(e) => {
-                    const target = e.currentTarget
-                    target.style.display = "none"
-                    const fallback = target.nextElementSibling as HTMLElement
-                    if (fallback) fallback.style.display = "block"
-                  }}
+                  priority
                 />
                 <span
                   className="hidden text-4xl sm:text-5xl font-bold tracking-tight text-white"

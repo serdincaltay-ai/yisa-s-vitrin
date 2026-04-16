@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { Check, X, Star, Coins } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useInView } from "@/hooks/use-in-view"
@@ -76,7 +77,8 @@ export function Pricing() {
             Net Fiyatlar, Güçlü Altyapı
           </h2>
           <p className="text-sm md:text-base text-white/50 max-w-2xl mx-auto text-pretty">
-            Tek seferlik yazılım lisans bedeli. Token paketleri ile yapay zeka özelliklerini etkinleştirin.
+            3 paket modeli ile ilerleyin: Standart, Standart + 1.500 Token, Standart + 2.500 Token.
+            Tüm paketlerde <span className="text-[#f59e0b] font-semibold">3.000 USD aktivasyon</span> bedeli esas alınır.
           </p>
         </div>
 
@@ -130,18 +132,22 @@ export function Pricing() {
                 ))}
               </ul>
 
-              <Button
-                className={`w-full font-mono tracking-wider min-h-[44px] transition-all ${pkg.popular ? "bg-[#818cf8] text-white hover:bg-[#818cf8]/80 hover:shadow-lg hover:shadow-[#818cf8]/20" : "bg-white/10 text-white hover:bg-white/15"}`}
-                onClick={() => document.getElementById("demo")?.scrollIntoView({ behavior: "smooth" })}
-              >
-                {pkg.cta}
-              </Button>
+              <Link href="/demo" className="w-full">
+                <Button
+                  className={`w-full font-mono tracking-wider min-h-[44px] transition-all ${pkg.popular ? "bg-[#818cf8] text-white hover:bg-[#818cf8]/80 hover:shadow-lg hover:shadow-[#818cf8]/20" : "bg-white/10 text-white hover:bg-white/15"}`}
+                >
+                  {pkg.cta}
+                </Button>
+              </Link>
             </div>
           ))}
         </div>
 
-        <div className="mt-8 p-4 rounded-xl border border-[#f59e0b]/20 bg-[#f59e0b]/5 text-center">
-          <p className="text-sm text-[#f59e0b] font-mono">
+        <div className="mt-8 p-4 rounded-xl border border-[#f59e0b]/20 bg-[#f59e0b]/5 text-center space-y-2">
+          <p className="text-sm text-[#f59e0b] font-mono font-semibold">
+            Aktivasyon Bedeli (Tüm Paketlerde): 3.000 USD
+          </p>
+          <p className="text-xs text-[#f59e0b]/90 font-mono">
             Token Hesaplama: 2 token = 1 TL | 1.500 token = 750 TL | 2.500 token = 1.250 TL
           </p>
         </div>

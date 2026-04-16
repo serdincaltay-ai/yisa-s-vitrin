@@ -1,11 +1,13 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { BRAND } from '@/lib/knowledge/yisas'
+import { createPageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: 'Kullanım Şartları',
-  description: 'YİSA-S platform kullanım şartları ve koşulları',
-}
+  description: 'YİSA-S platform kullanım şartları ve koşulları.',
+  path: '/kullanim-sartlari',
+})
 
 export default function KullanimSartlariPage() {
   return (
