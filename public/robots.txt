@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yisa-s.com/sitemap.xml

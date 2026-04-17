@@ -1,99 +1,79 @@
-import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { BRAND } from "@/lib/knowledge/yisas";
-import {
-  SITE_URL,
-  buildOgImageUrl,
-  organizationJsonLd,
-  sportsActivityLocationJsonLd,
-} from "@/lib/seo";
+import type { Metadata, Viewport } from 'next'
+import './globals.css'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const SITE_URL = 'https://yisa-s.com'
+const OG_IMAGE = '/landing/teknolojiyi-spora-baslattik-1.png'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${BRAND.name} — Kurumsal Yazılım Platformu`,
-    template: `%s | ${BRAND.name}`,
+    default: 'YİSA-S | Teknolojiyi Spora Başlattık',
+    template: '%s | YİSA-S',
   },
-  description: "YİSA-S Spor Tesisi Yönetim Sistemi — Yapay zeka destekli kurumsal çözümler.",
-  manifest: "/manifest.json",
-  alternates: {
-    canonical: "/",
-  },
+  description:
+    'Çocukların spor gelişimini yapay zeka ile ölçen veli odaklı platform. 900 alanlı değerlendirme, şeffaf raporlar.',
+  keywords: [
+    'YİSA-S',
+    'çocuk spor',
+    'spor yapay zeka',
+    'spor ölçüm',
+    'veli paneli',
+    'cimnastik',
+    'BJK Tuzla',
+    '900 alan değerlendirme',
+    'PHV',
+    'çocuk sporcu gelişimi',
+  ],
+  authors: [{ name: 'YİSA-S' }],
+  creator: 'YİSA-S',
+  publisher: 'YİSA-S',
+  alternates: { canonical: SITE_URL },
   openGraph: {
-    type: "website",
-    locale: "tr_TR",
-    siteName: BRAND.name,
+    type: 'website',
+    locale: 'tr_TR',
     url: SITE_URL,
-    title: `${BRAND.name} — Kurumsal Yazılım Platformu`,
-    description: "YİSA-S Spor Tesisi Yönetim Sistemi — Yapay zeka destekli kurumsal çözümler.",
+    siteName: 'YİSA-S',
+    title: 'YİSA-S | Teknolojiyi Spora Başlattık',
+    description:
+      'Çocukların spor gelişimini yapay zeka ile ölçen veli odaklı platform.',
     images: [
       {
-        url: buildOgImageUrl(`${BRAND.name} Kurumsal Yazılım Platformu`),
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: `${BRAND.name} OG Görseli`,
+        alt: 'YİSA-S — Teknolojiyi Spora Başlattık',
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: `${BRAND.name} — Kurumsal Yazılım Platformu`,
-    description: "YİSA-S Spor Tesisi Yönetim Sistemi — Yapay zeka destekli kurumsal çözümler.",
-    images: [buildOgImageUrl(`${BRAND.name} Kurumsal Yazılım Platformu`)],
+    card: 'summary_large_image',
+    title: 'YİSA-S | Teknolojiyi Spora Başlattık',
+    description:
+      'Çocukların spor gelişimini yapay zeka ile ölçen veli odaklı platform.',
+    images: [OG_IMAGE],
   },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: BRAND.name,
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
   },
-};
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+  },
+}
 
 export const viewport: Viewport = {
-  width: "device-width",
+  themeColor: '#0e7490',
+  width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  viewportFit: "cover",
-  themeColor: "#818cf8",
-};
+}
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="tr">
-      <head>
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/icon-192.png" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(sportsActivityLocationJsonLd),
-          }}
-        />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <body className="antialiased">{children}</body>
     </html>
-  );
+  )
 }
