@@ -23,7 +23,6 @@ const STATE_STYLE: Record<YisaRobotState, { body: string; eye: string; mouth: st
 }
 
 export function YisaRobotAvatar({
-  variant: _variant,
   size = 256,
   initialState = 'idle',
   onStateChange,

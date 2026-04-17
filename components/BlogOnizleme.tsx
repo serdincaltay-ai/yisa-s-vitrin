@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 const POSTS = [
   {
     slug: '900-alan-degerlendirme-sistemi-nasil-calisir',
@@ -30,9 +32,9 @@ export function BlogOnizleme() {
             <h2 className="text-3xl font-bold md:text-5xl">Blog</h2>
             <p className="mt-3 text-lg text-slate-400">Spor + veri + çocuk gelişimi üçgeninden notlar.</p>
           </div>
-          <a href="/blog" className="text-sm font-semibold text-cyan-300 hover:text-cyan-200">
+          <Link href="/blog" className="text-sm font-semibold text-cyan-300 hover:text-cyan-200">
             Tümünü gör →
-          </a>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -45,12 +47,12 @@ export function BlogOnizleme() {
                 {p.baslik}
               </h3>
               <p className="mt-3 flex-1 text-sm text-slate-400">{p.ozet}</p>
-              <a
+              <Link
                 href={`/blog/${p.slug}`}
                 className="mt-6 text-sm font-semibold text-cyan-300 hover:text-cyan-200"
               >
                 Devamını oku →
-              </a>
+              </Link>
             </article>
           ))}
         </div>
