@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { POSTS } from '../page'
+import { POSTS } from '@/lib/blog-posts'
 
 type Params = { slug: string }
 
