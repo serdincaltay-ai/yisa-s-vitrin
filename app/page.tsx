@@ -4,6 +4,7 @@ import { VeliNeGorur } from '../components/VeliNeGorur'
 import { BlogOnizleme } from '../components/BlogOnizleme'
 import { CELFMudurluk } from '../components/CELFMudurluk'
 import { FooterCTA } from '../components/FooterCTA'
+import { UrunEkranlari } from '../components/UrunEkranlari'
 
 export default function HomePage() {
   return (
@@ -49,6 +50,7 @@ export default function HomePage() {
       <RobotMarketplace />
       <VeliNeGorur />
       <CELFMudurluk />
+      <UrunEkranlari />
       <section id="blog">
         <BlogOnizleme />
       </section>
