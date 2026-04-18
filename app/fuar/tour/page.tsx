@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Sparkles, QrCode, Clock, ChevronRight, Volume2, Mic } from "lucide-react"
+import { Sparkles, QrCode, ChevronRight, Volume2, Mic } from "lucide-react"
 import { SITE_INTEGRATION_LINKS } from "@/lib/knowledge/yisas"
 
 const TOUR_DURATION_SEC = 90
