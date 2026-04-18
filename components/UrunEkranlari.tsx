@@ -29,7 +29,7 @@ export function UrunEkranlari() {
           <p className="mt-4 text-lg text-slate-300">
             Antrenör masaüstü, veli telefonu ve randevu akışı — kulüpte her gün kullanılan
             ekranların birebir tasarımı. Her panel WhatsApp şablonları, çakışma kontrolü ve
-            hatırlatma cron'u ile entegre çalışır.
+            hatırlatma cron&apos;u ile entegre çalışır.
           </p>
         </div>
 
@@ -233,8 +233,8 @@ function AntrenorMock() {
                   Merhaba, <span className="font-semibold text-emerald-200">Defne Altay</span>{' '}
                   için{' '}
                   <span className="font-semibold text-emerald-200">21 Nisan Pazartesi</span> günü{' '}
-                  <span className="font-semibold text-emerald-200">17:30</span>'da{' '}
-                  <span className="font-semibold text-emerald-200">Tuzla Olimpik Havuz</span>'da
+                  <span className="font-semibold text-emerald-200">17:30</span>&apos;da{' '}
+                  <span className="font-semibold text-emerald-200">Tuzla Olimpik Havuz</span>&apos;da
                   randevunuz var. Onaylamak için bu mesaja yanıt verin.
                 </p>
               </div>
@@ -397,8 +397,8 @@ function VeliMock() {
               Antrenör Notu
             </div>
             <p className="text-sm text-slate-200">
-              "Defne'nin teknik puanı son üç haftada belirgin yükseldi. Bir sonraki seansta
-              start çıkışı çalışacağız — pazartesi 17:30 randevusunda görüşürüz."
+              &ldquo;Defne&apos;nin teknik puanı son üç haftada belirgin yükseldi. Bir sonraki
+              seansta start çıkışı çalışacağız — pazartesi 17:30 randevusunda görüşürüz.&rdquo;
             </p>
             <div className="mt-2 text-[11px] text-slate-500">— Antrenör Mert Kaya · BJK Tuzla</div>
           </div>
