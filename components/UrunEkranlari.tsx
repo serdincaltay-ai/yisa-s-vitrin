@@ -33,24 +33,58 @@ export function UrunEkranlari() {
           </p>
         </div>
 
-        <div className="mb-8 flex flex-wrap gap-2">
-          {TABS.map((t) => (
-            <button
-              key={t.id}
-              onClick={() => setTab(t.id)}
-              className={`rounded-xl border px-5 py-3 text-left transition ${
-                tab === t.id
-                  ? 'border-emerald-400 bg-emerald-400/10 text-emerald-100'
-                  : 'border-slate-700 bg-slate-900/60 text-slate-300 hover:border-slate-500 hover:text-slate-100'
-              }`}
-            >
-              <div className="text-sm font-semibold">{t.label}</div>
-              <div className="mt-0.5 text-xs text-slate-400">{t.sub}</div>
-            </button>
-          ))}
+        <div role="tablist" aria-label="Ürün ekranları" className="mb-8 flex flex-wrap gap-2">
+          {TABS.map((t) => {
+            const aktif = tab === t.id
+            return (
+              <button
+                key={t.id}
+                role="tab"
+                id={`urun-tab-${t.id}`}
+                aria-selected={aktif}
+                aria-controls={`urun-panel-${t.id}`}
+                tabIndex={aktif ? 0 : -1}
+                onClick={() => setTab(t.id)}
+                onKeyDown={(e) => {
+                  if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                    e.preventDefault()
+                    const i = TABS.findIndex((x) => x.id === tab)
+                    const next =
+                      e.key === 'ArrowRight'
+                        ? TABS[(i + 1) % TABS.length]
+                        : TABS[(i - 1 + TABS.length) % TABS.length]
+                    setTab(next.id)
+                    document.getElementById(`urun-tab-${next.id}`)?.focus()
+                  } else if (e.key === 'Home') {
+                    e.preventDefault()
+                    setTab(TABS[0].id)
+                    document.getElementById(`urun-tab-${TABS[0].id}`)?.focus()
+                  } else if (e.key === 'End') {
+                    e.preventDefault()
+                    const last = TABS[TABS.length - 1]
+                    setTab(last.id)
+                    document.getElementById(`urun-tab-${last.id}`)?.focus()
+                  }
+                }}
+                className={`rounded-xl border px-5 py-3 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 ${
+                  aktif
+                    ? 'border-emerald-400 bg-emerald-400/10 text-emerald-100'
+                    : 'border-slate-700 bg-slate-900/60 text-slate-300 hover:border-slate-500 hover:text-slate-100'
+                }`}
+              >
+                <div className="text-sm font-semibold">{t.label}</div>
+                <div className="mt-0.5 text-xs text-slate-400">{t.sub}</div>
+              </button>
+            )
+          })}
         </div>
 
-        <div className="rounded-3xl border border-slate-800 bg-slate-950/80 p-3 shadow-2xl shadow-cyan-500/5 ring-1 ring-cyan-400/10 md:p-6">
+        <div
+          role="tabpanel"
+          id={`urun-panel-${tab}`}
+          aria-labelledby={`urun-tab-${tab}`}
+          className="rounded-3xl border border-slate-800 bg-slate-950/80 p-3 shadow-2xl shadow-cyan-500/5 ring-1 ring-cyan-400/10 md:p-6"
+        >
           {tab === 'antrenor' && <AntrenorMock />}
           {tab === 'veli' && <VeliMock />}
           {tab === 'randevu' && <RandevuMock />}
@@ -257,7 +291,7 @@ function VeliMock() {
 
             {/* Radar (decorative SVG) */}
             <div className="mx-auto mb-4 aspect-square w-full max-w-[220px]">
-              <svg viewBox="0 0 200 200" className="h-full w-full">
+              <svg aria-hidden="true" viewBox="0 0 200 200" className="h-full w-full">
                 {[80, 60, 40, 20].map((r) => (
                   <polygon
                     key={r}
@@ -541,9 +575,9 @@ function Stat({ n, l, tone = 'slate' }: { n: string; l: string; tone?: 'slate' |
 function BrowserChrome({ url, mobil = false }: { url: string; mobil?: boolean }) {
   return (
     <div className="flex items-center gap-2 border-b border-slate-800 bg-slate-950/80 px-4 py-2.5">
-      <span className="h-2.5 w-2.5 rounded-full bg-rose-500/70" />
-      <span className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
-      <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
+      <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-rose-500/70" />
+      <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-amber-400/70" />
+      <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-emerald-400/70" />
       <div className="ml-3 flex-1 truncate rounded-md bg-slate-900 px-3 py-1 text-[11px] text-slate-400">
         🔒 {url}
       </div>
