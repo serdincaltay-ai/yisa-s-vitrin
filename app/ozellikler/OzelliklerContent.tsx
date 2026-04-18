@@ -175,7 +175,7 @@ export default function OzelliklerContent() {
               viewport={{ once: true }}
               className="space-y-4"
             >
-              {PHV.stages.map((stage, i) => (
+              {PHV.stages.map((stage) => (
                 <div key={stage.id} className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-4">
                   <div className="flex justify-between items-center mb-2">
                     <h4 className="font-medium text-white">{stage.name}</h4>

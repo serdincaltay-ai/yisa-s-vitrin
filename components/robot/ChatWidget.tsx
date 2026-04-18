@@ -3,7 +3,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MessageCircle, X, Send, Minimize2, Maximize2, Bot, User } from 'lucide-react'
+import { X, Send, Minimize2, Maximize2, Bot, User } from 'lucide-react'
 import { BRAND, ROBOT_ACTIONS } from '@/lib/knowledge/yisas'
 import { buildAppApiUrl } from '@/lib/app-api'
 

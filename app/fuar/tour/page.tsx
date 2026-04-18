@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sparkles, QrCode, ChevronRight, Volume2, Mic } from "lucide-react"
@@ -137,7 +138,7 @@ export default function FuarTourPage() {
                 <QrCode className="w-8 h-8 text-[#00d4ff]/70 mb-3" />
                 <p className="text-xs text-white/50 uppercase tracking-wider mb-3">Fuar QR Kodu</p>
                 {qrUrl ? (
-                  <img src={qrUrl} alt="90 sn tur sayfası QR kodu" width={160} height={160} loading="lazy" className="w-40 h-40 rounded-lg bg-white" />
+                  <Image src={qrUrl} alt="90 sn tur sayfası QR kodu" width={160} height={160} loading="lazy" unoptimized className="w-40 h-40 rounded-lg bg-white" />
                 ) : (
                   <div className="w-40 h-40 rounded-lg bg-white/10 flex items-center justify-center text-white/40 text-sm">
                     Yükleniyor...
